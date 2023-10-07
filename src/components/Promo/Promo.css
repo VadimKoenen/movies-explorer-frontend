@@ -1,0 +1,224 @@
+.promo {
+    background: #FAFAFA;
+    padding-bottom: 97px;
+  }
+  
+  .promo__title {
+    max-width: 1140px;
+    letter-spacing: -0.88px;
+    margin: 0 auto;
+    padding-top: 110px;
+    padding-bottom: 23px;
+    border-bottom: 1px solid 
+    #000000;
+    font-size: 22px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: normal;
+  }
+  
+  .promo__container {
+    display: flex;
+    margin: 0 auto;
+    margin-top: 70px;
+    max-width: 1140px;
+    justify-content: space-between;
+    padding: 0;
+    list-style: none;
+  }
+  
+  .promo__column {
+    width: 550px;
+  }
+  
+  .promo__subtitle {
+    margin: 0;
+    font-size: 20px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: normal;
+    letter-spacing: -0.8px;
+  }
+  
+  .promo__paragraph {
+    margin: 0;
+    margin-top: 26px;
+    font-size: 14px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: 20px;
+  }
+  
+  .promo__stage {
+    margin: 0 auto;
+    margin-top: 110px;
+    max-width: 1140px;
+    display: flex;
+  }
+  
+  .another-stage_back {
+    width: 228px;
+  }
+  
+  .promo__another-stage_back-week {
+    margin: 0;
+    height: 35px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: #3456F3;
+    color: black;
+    font-family: Inter;
+    font-size: 14px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: normal;
+  }
+  
+  .promo__another-stage_back_paragraph {
+    text-align: center;
+    margin-top: 14px;
+    color: #A0A0A0;
+    font-size: 14px;
+    font-style: normal;
+    font-weight: 500;
+    line-height: 17px;
+  }
+  
+  .promo__front {
+    width: calc(100% - 228px);
+  }
+  
+  .promo__another-front_week {
+    margin: 0;
+    background: #F2F2F2;
+    height: 35px;
+    text-align: center;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 14px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: normal;
+  }
+  .promo__another-front_paragraph {
+    text-align: center;
+    margin-top: 14px;
+    color: #A0A0A0;
+    font-size: 14px;
+    font-style: normal;
+    font-weight: 500;
+    line-height: 17px;
+  }
+  @media (max-width: 1025px) {
+    .promo {
+      padding-bottom: 78px;
+    }
+    .promo__title {
+      padding-top: 90px;
+      max-width: 668px;
+    }
+    .promo__container {
+      max-width: 670px;
+    }
+    .promo__column {
+      width: 320px;
+    }
+    .promo__paragraph {
+      margin-top: 22px;
+      font-size: 12px;
+      line-height: 18px;
+    }
+    .promo__stage {
+      max-width: 668px;
+      margin-top: 93px;
+    }
+    .another-stage_back {
+      width: 140px;
+    }
+    .promo__another-stage_back-week {
+      height: 36px;
+    }
+    .promo__front {
+      width: calc(100% - 140px);
+    }
+    .promo__another-front_week {
+      height: 36px;
+    }
+  }
+  
+  @media (max-width: 767px) {
+    .promo__title {
+      max-width: 420px;
+    }
+    .promo__container {
+      max-width: 420px;
+    }
+    .promo__column {
+      width: 100%;
+    }
+    .promo__stage {
+      max-width: 420px;
+    }
+  }
+  @media (max-width: 500px) {
+    .promo {
+      padding-bottom: 65px;
+    }
+    .promo__title {
+      padding-top: 70px;
+      max-width: 284px;
+      font-size: 18px;
+      padding-bottom: 29px;
+      padding-top: 67px;
+    }
+    .promo__container {
+      max-width: 284px;
+      display: block;
+      margin-top: 60px;
+    }
+    .promo__column {
+      width: 100%;
+    }
+    .promo__column:first-child {
+      margin-bottom: 58px;
+  }
+    .promo__subtitle {
+      font-size: 18px;
+      letter-spacing: -1px;
+    }
+    .promo__paragraph {
+      margin-top: 16px;
+      font-size: 11px;
+      line-height: 16px;
+    }
+    .promo__stage {
+      max-width: 284px;
+      margin-top: 60px;
+    }
+    .another-stage_back {
+      width: 100px;
+    }
+    .promo__another-stage_back-week {
+      height: 35px;
+      font-size: 11px;
+    }
+    .promo__front {
+      width: calc(100% - 100px);
+    }
+    .promo__another-front_week {
+      height: 35px;
+      font-size: 11px;
+    }
+    .promo__another-stage_back_paragraph {
+      font-size: 11px;
+      line-height: normal;
+      margin-top: 10px;
+    }
+    .promo__another-front_paragraph {
+      font-size: 11px;
+      line-height: normal;
+      margin-top: 10px;
+    }
+  }

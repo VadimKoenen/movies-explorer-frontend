@@ -1,0 +1,14 @@
+.movies {
+    background-color: #FAFAFA;
+    padding: 0 70px 0 70px;
+    
+}
+
+
+
+
+@media (max-width: 425px) {
+.movies {
+    padding: 0px 10px 0px 10px;
+    }
+}
