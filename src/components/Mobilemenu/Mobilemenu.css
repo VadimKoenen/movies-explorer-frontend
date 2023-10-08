@@ -104,17 +104,17 @@
 }
 
 @media (max-width: 500px) {
-.mobilemenu__link{
-margin: 4px 0 20px;
-}
-.mobilemenu__button-account {
-margin-bottom: 63px;
-}
-.mobilemenu__close {
-    top: 17px;
-    right: 18px;
-}
+    .mobilemenu__link {
+        margin: 4px 0 20px;
+    }
+
+    .mobilemenu__button-account {
+        margin-bottom: 63px;
+    }
+
+    .mobilemenu__close {
+        top: 17px;
+        right: 18px;
+    }
 
 }
-
-

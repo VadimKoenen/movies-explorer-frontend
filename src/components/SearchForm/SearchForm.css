@@ -51,6 +51,7 @@
 
 .form__button {
   background-image: url(../../images/find.svg);
+  margin-right: -11px;
   width: 34px;
   height: 34px;
   color: transparent;
@@ -148,32 +149,38 @@
 @media (max-width: 1025px) {
   .search {
     max-width: 708px;
-    margin-top: 75px;
+    padding-right: 23px;
   }
 
   .search__form {
     width: calc(100% - 290px);
   }
 
-  .search__line {
-    margin-left: 19px;
+  .form__button {
+    margin-right: -23px;
+  }
+
+  .search__vline {
+    margin-left: 42px;
+    margin-right: 19px;
   }
 
   .search__button {
-    margin-left: 19px;
+    margin-left: 0px;
   }
 }
 
-@media (max-width: 425px) {
+@media (max-width: 650px) {
 
   .search {
     flex-direction: column;
     justify-content: center;
     max-width: 300px;
     height: auto;
-    margin-top: 77px;
+    padding-top: 66px;
     background-color: #FAFAFA;
     box-shadow: none;
+    padding-right: 0px;
   }
 
   .search__logo {
@@ -194,7 +201,7 @@
   .form_films {
     width: 100%;
     margin-left: 19px;
-    margin-right: 19px;
+    margin-right: 42px
   }
 
   .input {
@@ -206,8 +213,12 @@
     font-size: 11px;
   }
 
-  .search__line {
+  .search__vline {
     display: none;
+  }
+
+  .search__gline {
+    padding-top: 0px;
   }
 
   .search__container {

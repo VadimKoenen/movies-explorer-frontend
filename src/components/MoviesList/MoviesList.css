@@ -3,25 +3,33 @@
   margin: 0 auto 0 auto;
 }
 
-.movie-list__size-container {
+.movie-list__container {
     padding: 78px 0 0;
     display: flex;
     row-gap: 30px;
     column-gap: 20px;
     flex-wrap: wrap;
     justify-content: center;
+    margin: 0;
   }
   
   @media (max-width: 1200px) {
-    .movie-list__size-container {
+    .movie-list__container {
       row-gap: 36px;
       column-gap: 30px;
     }
   }
+
+
+  @media (max-width: 1024px) {
+    .movie-list__container {
+  padding: 119px 0 0;
+    }
+  }
   
   @media screen and (max-width: 720px) {
-    .movie-list__size-container {
-      row-gap: 15px;
-      padding: 55px 0 0;
+    .movie-list__container {
+      row-gap: 20px;
+      padding: 50px 0 0;
     }
   }

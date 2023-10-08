@@ -2,8 +2,7 @@
   background-color: #F5F5F5;
   height: 66px;
   padding: 0;
-  margin: 0;
-  /* justify-self: flex-end; */
+  margin: 0; 
 }
 
 .navigation__size-container {
@@ -30,16 +29,11 @@
 }
 
 
-@media screen and (max-width: 500px) {
+@media (max-width: 500px) {
   .navigation__size-container {
     max-width: 214px;
     gap: 24px;
   }
-}
-
-
-
-@media screen and (max-width: 500px) { /*этот стиль отключен, перенести свойства*/
   .navigation__text {
     font-size: 11px;
     height: 20px;

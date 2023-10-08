@@ -1,13 +1,13 @@
 import React from 'react';
 import './MoviesList.css';
-import Movie from "../Movie/Movie";
-import More from "../More/More";
+import Movie from '../Movie/Movie';
+import More from '../More/More';
 
 function MoviesList(isMoviePage) {
     return (
         <section className="movie-list">
 
-            <ul className="movie-list__size-container size-container">
+            <ul className="movie-list__container">
                 <Movie
                     isMoviePage={isMoviePage}
                 />

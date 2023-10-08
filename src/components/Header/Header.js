@@ -1,8 +1,8 @@
-import "./Header.css";
-import logo from "../../images/logo.svg";
+import './Header.css';
+import logo from '../../images/logo.svg';
 import { useLocation, Link, NavLink } from 'react-router-dom';
-import { useState, useEffect } from "react";
-import Mobilemenu from "../Mobilemenu/Mobilemenu";
+import { useState, useEffect } from 'react';
+import Mobilemenu from '../Mobilemenu/Mobilemenu';
 
 function Header({ props, isMainPage, userEmail, deleteToken, isLoggedIn, isPopup, handleClose, isOpen }) {
 
@@ -30,25 +30,19 @@ function Header({ props, isMainPage, userEmail, deleteToken, isLoggedIn, isPopup
           <>
             <div className="header__info">
               <NavLink
-
-                className={({ isActive }) => `header__button header__button-loggin ${isActive ? "header__button-loggin" : ""}`}
-                //className="header__button header__button-loggin"
-                //activeClassName="header__button-active"
+                className={({ isActive }) => `header__button header__button-movies ${isActive ? "header__button-active" : ""}`}
                 to="/movies"
               >
                 {'Фильмы'}
               </NavLink>
               <NavLink
-                className={({ isActive }) => `header__button header__button-loggin ${isActive ? "header__button-loggin" : ""}`}
-                //activeClassName="header__button-active"
-                //className="header__button header__button-loggin"
+                className={({ isActive }) => `header__button header__button-savedmovies  ${isActive ? "header__button-active" : ""}`}
                 to="/saved-movies"
-
               >
                 {'Сохраненные фильмы'}
               </NavLink>
               <Link
-                className="header__button-acc"
+                className="header__link-account"
                 to="/profile"
               >
                 <button className="header__button-account"></button>
@@ -56,7 +50,7 @@ function Header({ props, isMainPage, userEmail, deleteToken, isLoggedIn, isPopup
               <button
                 type="button"
                 className='header__burger'
-              onClick={handMobileMenuOpen}
+                onClick={handMobileMenuOpen}
               >
               </button>
               <Mobilemenu

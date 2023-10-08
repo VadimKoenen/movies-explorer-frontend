@@ -1,3 +1,5 @@
+
+/*
 class Api {
   constructor(baseUrl, headers) {
     this._baseUrl = baseUrl;
@@ -109,3 +111,5 @@ const api = new Api(
 );
 
 export default api;
+
+*/

@@ -1,12 +1,11 @@
-import "./SearchForm.css";
+import './SearchForm.css';
 import logo from "../../images/search-icon.svg";
 
-function SearchForm(props) {
-  function handleChangeFilm(e) {
-    props.setNameFilm(e.target.value);
-  }
-  return (
-    <section className="search-section">
+function SearchForm(props, handleKorot, handleChangeFilm, handleSubmitFilms) {
+
+
+return (
+  <section className="search-section">
     <form className="search">
       <img className="search__logo" alt="лупа" src={logo} />
       <div className="search__form">
@@ -20,10 +19,10 @@ function SearchForm(props) {
             required
           />
           <button
-            onClick={props.handleSubmitFilms}
+            onClick={handleSubmitFilms}
             className="form__button"
             type="submit"
-          >          
+          >
           </button>
         </form>
       </div>
@@ -33,15 +32,15 @@ function SearchForm(props) {
           className="search__button"
           type="checkbox"
           id='shortfilm'
-          onClick={props.handleKorot}
+          //onClick={handleKorot}
         >
         </input>
         <label for="shortfilm" className="search__korot">Короткометражки</label>
       </div>
-      </form>
+    </form>
     <div className="search__gline"></div>
-    </section>
-  );
+  </section>
+);
 }
 
 export default SearchForm;

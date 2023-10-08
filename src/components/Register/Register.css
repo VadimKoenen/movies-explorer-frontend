@@ -3,6 +3,7 @@
   min-height: 100%;
   width: 100%;
 }
+
 .register__container {
   margin: 0 auto;
   padding-top: 70px;
@@ -109,22 +110,27 @@
     width: 260px;
     padding-top: 56px;
   }
+
   .register__logo {
     margin: 0 auto;
     display: block;
   }
+
   .register__title {
     margin-top: 50px;
     text-align: center;
   }
+
   .form__subtitle:first-child {
     margin-top: 80px;
   }
+
   .register__save {
     margin: 242px auto 0 auto;
     font-size: 12px;
     line-height: 14.52px;
   }
+
   .register__signup {
     font-size: 12px;
   }

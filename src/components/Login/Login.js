@@ -1,6 +1,6 @@
-import "./Login.css";
-import logo from "../../images/logo.svg";
-import { Link } from "react-router-dom";
+import './Login.css';
+import logo from '../../images/logo.svg';
+import { Link } from 'react-router-dom';
 
 function Login(props) {
   return (
@@ -13,7 +13,7 @@ function Login(props) {
         <form className="form">
           <p className="form__subtitle">E-mail</p>
           <input
-            type="email"           
+            type="email"
             className="login__input"
             name="email"
             required
@@ -22,7 +22,7 @@ function Login(props) {
           <span className="mesto-name-error form__item-error form__item-error_field_name"></span>
           <p className="form__subtitle">Пароль</p>
           <input
-            type="text"            
+            type="text"
             className="login__input"
             name="password"
             id="password"

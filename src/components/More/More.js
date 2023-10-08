@@ -1,4 +1,4 @@
-import React from "react";
+import React from 'react';
 import './More.css';
 
 function More() {
@@ -7,7 +7,8 @@ function More() {
       <button
         className="more__button"
         aria-label="show more films"
-      >Ещё</button>
+      >Ещё
+      </button>
     </div>
 
   );

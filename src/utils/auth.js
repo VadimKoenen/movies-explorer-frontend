@@ -1,3 +1,4 @@
+/*
 export const baseUrl = ['https://api.vkoenen.mesto.nomoredomainsicu.ru']; ///['http://localhost:3000'];
 
 const checkResponce = (res) =>
@@ -46,3 +47,4 @@ export const logout = () => {
     },
   }).then((res) => checkResponce(res));
 };
+*/

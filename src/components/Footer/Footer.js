@@ -1,4 +1,5 @@
-import "./Footer.css";
+import './Footer.css';
+
 function Footer() {
   return (
     <footer className="footer">
@@ -13,17 +14,17 @@ function Footer() {
           <li>
             <a
               href="https://practicum.yandex.ru/"
-              className="footer__second-list footer__second-list_link" target="_blank" rel="noreferrer"
+              className="footer__list-link" target="_blank" rel="noreferrer"
             >
-              <p className="footer__list footer__list_text">ЯндексПрактикум</p>
+              <p className="footer__list_text">ЯндексПрактикум</p>
             </a>
           </li>
           <li>
             <a
-              href="https://github.com/davatim?tab=repositories"
-              className="footer__three-list footer__three-list_link" target="_blank" rel="noreferrer"
+              href="https://github.com/VadimKoenen"
+              className="footer__list-link" target="_blank" rel="noreferrer"
             >
-              <p className="footer__list footer__list_text_git">GitHub</p>
+              <p className="footer__list_text_git">GitHub</p>
             </a>
           </li>
         </ul>

@@ -1,7 +1,7 @@
-import "./Promo.css";
+import './Promo.css';
 function Promo() {
   return (
-    <section className="promo" id="promo">
+    <section className="promo">
       <h2 className="promo__title"> О проекте</h2>
       <ul className="promo__container">
         <li className="promo__column">

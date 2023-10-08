@@ -1,3 +1,5 @@
+/*
+
 export const profileEditButton = document.querySelector('.profile__edit-button');
 export const profileName = document.querySelector('.profile__name');
 export const profileDescription = document.querySelector('.profile__description');
@@ -23,3 +25,4 @@ export const setup = {
   inputErrorClass: 'popup__text_error',
   errorClass: 'popup__error-text_active',
 };
+*/

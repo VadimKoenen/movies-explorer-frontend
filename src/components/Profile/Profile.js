@@ -1,13 +1,12 @@
 import React from 'react';
 import './Profile.css';
-// import { CurrentUserContext } from "../../contexts/CurrentUserContext";
-import { Link } from "react-router-dom";
+import { Link } from 'react-router-dom';
 import Header from '../Header/Header'
 
 const currentUser = { name: "Vadim", email: "mail@mail.com" }
 
 function Profile({ isMainPage, isLoggedIn, handleInputChange, isEdit, isSave }) {
-  //currentUser.name currentUser.email
+
   return (
     <>
       <Header
@@ -19,8 +18,7 @@ function Profile({ isMainPage, isLoggedIn, handleInputChange, isEdit, isSave }) 
         <h1 className="profile__title">Привет, {currentUser.name}!</h1>
         <form
           className="profile__form"
-          name="profile"
-        // onSubmit={onSubmit}
+          name="profile"        
         >
           <div className="profile__container">
             <label className="profile__label">
@@ -30,15 +28,14 @@ function Profile({ isMainPage, isLoggedIn, handleInputChange, isEdit, isSave }) 
               type="text"
               name="name"
               className="profile__input"
-              placeholder="Имя" //currentUser.name
+              placeholder="Имя" 
               required
               minLength="2"
               maxLength="20"
               id="profile__profile-name-input"
               onChange={handleInputChange}
               readOnly={!isEdit}
-            // onChange={(e) => handleChangeName(e)}
-            // value={name || ""} //currentUser.name
+            
             />
           </div>
           <div className="profile__container">
@@ -49,13 +46,11 @@ function Profile({ isMainPage, isLoggedIn, handleInputChange, isEdit, isSave }) 
               type="text"
               name="email"
               className="profile__input"
-              placeholder="mail@mail.com" //currentUser.name
+              placeholder="mail@mail.com" 
               required
               minLength="2"
               maxLength="20"
-              id="profile__profile-email-input`"
-            // onChange={(e) => handleChangeName(e)}
-            // value={name || ""} //currentUser.name
+              id="profile__profile-email-input`"            
             />
           </div>
           <button
