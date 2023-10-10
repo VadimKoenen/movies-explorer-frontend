@@ -15,6 +15,8 @@ function App() {
   //const [isFilms, setIsFilms] = useState(false);
   //const [isProfile, setIsProfile] = useState(false);
   const [isMainPage, setIsMainPage] = useState(false);
+  const [isMoviePage, setIsMoviePage] = useState(false);
+  const [isDisabled, setIsDisabled] = useState (false);
 
 
 
@@ -24,10 +26,16 @@ function App() {
       setIsMainPage(false);
   }, [path]);
 
+  useEffect(() => {
+    path.pathname === "/movies" ?
+    setIsMoviePage(true) :
+    setIsMoviePage(false);
+  }, [path]);
+
+
 
   return (
-    <div className="App">
-      <div className="page">
+    <div className="App">      
         <Routes>
           <Route
             path="/"
@@ -44,6 +52,7 @@ function App() {
               <Movies
                 isLoggedIn={true}
                 isMainPage={isMainPage}
+                isMoviePage={isMoviePage}
               />
             }
           />
@@ -53,7 +62,7 @@ function App() {
               <SavedMovies
                 isLoggedIn={true}
                 isMainPage={isMainPage}
-
+                isMoviePage={isMoviePage}
               />
             }
           />
@@ -71,7 +80,8 @@ function App() {
               <Profile
                 isLoggedIn={true}
                 isMainPage={isMainPage}
-                isSave={true}
+                isSave={false}
+                isDisabled={isDisabled}
               //signOut={signOut}
               />
             }
@@ -81,8 +91,7 @@ function App() {
             element={<Page404 />}
           />
         </Routes>
-      </div>
-    </div>
+      </div>   
   );
 }
 

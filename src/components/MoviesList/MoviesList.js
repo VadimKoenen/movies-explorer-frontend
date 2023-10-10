@@ -3,7 +3,7 @@ import './MoviesList.css';
 import Movie from '../Movie/Movie';
 import More from '../More/More';
 
-function MoviesList(isMoviePage) {
+function MoviesList( {isMoviePage} ) {
     return (
         <section className="movie-list">
 

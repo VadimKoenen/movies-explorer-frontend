@@ -14,17 +14,21 @@ function Footer() {
           <li>
             <a
               href="https://practicum.yandex.ru/"
-              className="footer__list-link" target="_blank" rel="noreferrer"
+              className="footer__list-link" 
+              target="_blank" 
+              rel="noreferrer"
             >
-              <p className="footer__list_text">ЯндексПрактикум</p>
+              <p className="footer__list-text">ЯндексПрактикум</p>
             </a>
           </li>
           <li>
             <a
               href="https://github.com/VadimKoenen"
-              className="footer__list-link" target="_blank" rel="noreferrer"
+              className="footer__list-link" 
+              target="_blank" 
+              rel="noreferrer"
             >
-              <p className="footer__list_text_git">GitHub</p>
+              <p className="footer__list-git">Github</p>
             </a>
           </li>
         </ul>

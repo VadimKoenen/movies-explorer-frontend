@@ -84,7 +84,7 @@
 
 
 
-@media screen and (max-width: 1200px) {
+@media  (max-width: 1200px) {
 
   .movie {
     max-width: 339px;

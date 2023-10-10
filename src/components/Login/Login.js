@@ -7,7 +7,10 @@ function Login(props) {
     <div className="login">
       <div className="login__container">
         <Link to="/">
-          <img src={logo} alt="логотип" className="login__logo"></img>
+          <img src={logo} 
+          alt="логотип" 
+          className="login__logo">            
+          </img>
         </Link>
         <h1 className="login__title">Рады видеть!</h1>
         <form className="form">
@@ -16,6 +19,7 @@ function Login(props) {
             type="email"
             className="login__input"
             name="email"
+            placeholder="e-mail"
             required
             id="email"
           />
@@ -25,6 +29,7 @@ function Login(props) {
             type="text"
             className="login__input"
             name="password"
+            placeholder="пароль"
             id="password"
             required
             minLength={2}

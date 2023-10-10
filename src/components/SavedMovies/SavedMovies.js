@@ -7,7 +7,7 @@ import Preloader from '../Preloader/Preloader';
 import MoviesList from '../MoviesList/MoviesList';
 
 
-function SavedMovies({ isMainPage, isLoggedIn, isLoading, movies }) {
+function SavedMovies({ isMainPage, isLoggedIn, isLoading, isMoviePage }) {
 
     return (
         <>
@@ -19,8 +19,8 @@ function SavedMovies({ isMainPage, isLoggedIn, isLoading, movies }) {
                 <SearchForm />
                 {isLoading ? <Preloader />
                     : <MoviesList
-                        isMoviePage={true}
-                        movies={movies}
+                        isMoviePage={isMoviePage}
+                        
                     />}
             </main>
             <Footer />

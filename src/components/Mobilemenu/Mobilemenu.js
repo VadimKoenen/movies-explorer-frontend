@@ -39,8 +39,9 @@ function Mobilemenu({ isMobileMenuOpen, handleClose }) {
             <NavLink
               to="/profile"
               aria-label="link to main page"
+              className="mobilemenu__link-account"
             >
-              <button className="mobilemenu__button-account"></button>
+              <p className="mobilemenu__button-account"></p>
             </NavLink>
             <button
               className="mobilemenu__close"

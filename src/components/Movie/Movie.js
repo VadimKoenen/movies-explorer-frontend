@@ -1,8 +1,9 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import './Movie.css';
+import { useState, useEffect } from "react";
 
-function Movie(isMoviePage) {
+function Movie( {isMoviePage} ) {
 
   const trailer = "https://www.youtube.com/watch?v=Dh1mIO79fxo";
 
@@ -16,7 +17,7 @@ function Movie(isMoviePage) {
         <img
           src="https://www.zastavki.com/pictures/originals/2019_Characters_of_the_movie_Game_of_Thrones_Season_8_135337_.jpg"
           className="movie__image"
-          alt="Game of Thrones"
+          alt="Игра престолов"
         />
       </Link>
       <div className="movie__info">
@@ -25,8 +26,10 @@ function Movie(isMoviePage) {
           <p className="movie__subtitle">1ч 47м</p>
         </div>
         <button
+          //className={`movie__icon ${isMoviePage ? "movie__icon_type_delete" : "movie__icon_type_delete"}`}
           className={`movie__icon ${isMoviePage ? "movie__icon_type_save" : "movie__icon_type_delete"}`}
-        /*movie__icon_type_save_active*/
+
+        /*movie__icon_type_save_active*/ 
         ></button>
       </div>
     </li>

@@ -20,9 +20,9 @@ function AboutMe() {
             href="https://github.com/VadimKoenen"
           >GitHub</a>
         </div>
-        <img src={img} alt="Фото Vadim Koenen" className="about-me__img" />
+        <img src={img} alt="Фото автора" className="about-me__img" />
       </div>
-      <h5 className="about-me__another-subtitle_portfolio">
+      <h5 className="about-me__portfolio">
         Портфолио
       </h5>
       <ul className="about-me__list">
@@ -33,10 +33,10 @@ function AboutMe() {
             target="_blank"
             rel="noreferrer"
           >
-            <p className="about-me__another-site_title">
+            <p className="about-me__site-title">
               Статичный сайт
             </p>
-            <img className="about-me__strelka" alt="strelka" src={arrow} />
+            <img className="about-me__strelka" alt="стрелка" src={arrow} />
           </a>
         </li>
         <li className="about-me__site">
@@ -46,10 +46,10 @@ function AboutMe() {
             target="_blank"
             rel="noreferrer"
           >
-            <p className="about-me__another-site_title">
+            <p className="about-me__site-title">
               Адаптивный сайт
             </p>
-            <img className="about-me__strelka" alt="strelka" src={arrow} />
+            <img className="about-me__strelka" alt="стрелка" src={arrow} />
           </a>
         </li>
         <li className="about-me__site">
@@ -57,10 +57,10 @@ function AboutMe() {
             className="about-me__link"
             target="_blank"
             rel="noreferrer">
-            <p className="about-me__another-site_title">
+            <p className="about-me__site-title">
               Одностраничное приложение
             </p>
-            <img className="about-me__strelka" alt="strelka" src={arrow} />
+            <img className="about-me__strelka" alt="стрелка" src={arrow} />
           </a>
         </li>
       </ul>

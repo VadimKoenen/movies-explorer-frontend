@@ -26,6 +26,12 @@
   white-space: nowrap;
   width: 67px;
   color: #000000;
+  transition: opacity .3s linear;
+}
+
+.navigation__text:hover {
+  opacity: 0.7;
+  cursor: pointer;
 }
 
 

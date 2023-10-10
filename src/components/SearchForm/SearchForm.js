@@ -9,7 +9,7 @@ return (
     <form className="search">
       <img className="search__logo" alt="лупа" src={logo} />
       <div className="search__form">
-        <form className="form form_films">
+        <div className="form form_films">
           <input
             value={props.nameFilm}
             onChange={handleChangeFilm}
@@ -24,21 +24,21 @@ return (
             type="submit"
           >
           </button>
-        </form>
+        </div>
       </div>
       <div className="search__vline"></div>
       <div className="search__container">
         <input
           className="search__button"
           type="checkbox"
-          id='shortfilm'
+          id='shortfilm'         
           //onClick={handleKorot}
         >
         </input>
         <label for="shortfilm" className="search__korot">Короткометражки</label>
       </div>
     </form>
-    <div className="search__gline"></div>
+    <div className="g-line"></div>
   </section>
 );
 }

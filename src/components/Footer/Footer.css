@@ -51,7 +51,7 @@
   justify-content: space-between;
 }
 
-.footer__list_text_git {
+.footer__list-git {
   margin-left: 20px;
   margin: 0;
   font-size: 13px;
@@ -60,7 +60,7 @@
   line-height: normal;
 }
 
-.footer__list_text {
+.footer__list-text {
   margin: 0;
   font-size: 13px;
   font-style: normal;
@@ -122,13 +122,14 @@
     font-size: 12px;
   }
 
-  .footer__list_text_git {
+  .footer__list-git {
     margin-top: 12px;
     margin-bottom: 30px;
     margin-left: 0;
+    font-size: 12px;
   }
 
-  .footer__list_text {
+  .footer__list-text {
     font-size: 12px;
   }
 }
