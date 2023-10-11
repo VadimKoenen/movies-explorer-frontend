@@ -68,7 +68,7 @@ function Profile({ isMainPage, isLoggedIn, handleInputChange, isEdit, isSave, is
               Выйти из аккаунта
             </Link>
             <span className={isSave ? "profile__error" : "profile__disabled"}
-            ></span>
+            >2</span>
             <button
               type="submit"
               aria-label="save"

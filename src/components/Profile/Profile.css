@@ -91,7 +91,7 @@
 }
 
 .profile__save {
-  margin: auto auto 0 auto;
+  margin: 20px auto 0 auto;
   color: #FFFFFF;
   border: none;
   display: block;
@@ -166,10 +166,8 @@
   font-style: normal;
   font-weight: 400;
   line-height: normal;
-  margin: 0 auto;
-  margin-top: auto;
-  display: block;
-  margin-top: 2px;
+  margin: auto auto 0 auto; 
+  display: block;  
 }
 
 
@@ -250,7 +248,6 @@
 
   .profile__save {
     width: 260px;
-    margin-top: 345px;
     font-size: 12px;
     line-height: 14.52px;
   }
