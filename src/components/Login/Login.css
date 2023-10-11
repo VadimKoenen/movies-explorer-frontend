@@ -1,13 +1,18 @@
 .login {
   background: #FFFFFF;
   height: 100vh;
-  width: 100%;
+  width: 100%;  
 }
 
 .login__container {
   margin: 0 auto;
   padding-top: 70px;
   width: 396px;
+  height: 100%;
+  padding-bottom: 70px;
+  box-sizing: border-box;
+  display: flex;
+  flex-direction: column;
 }
 
 .login__logo {
@@ -27,7 +32,16 @@
   font-style: normal;
   font-weight: 500;
   line-height: normal;
+  margin-bottom: 0;
 }
+
+.form {
+  display: flex;
+  flex-direction: column;
+  height: 420px;
+  justify-content: stretch;
+}
+
 
 .form__subtitle {
   margin: 0;
@@ -59,7 +73,7 @@
 }
 
 .login__save {
-  margin: 223px auto 0 auto;
+  margin: auto auto 0 auto;
   background: transparent;
   border: none;
   display: block;
@@ -73,6 +87,7 @@
   height: 45px;
   background: #3456F3;
   border-radius: 3px;
+  
 }
 
 .login__signup {
@@ -103,6 +118,7 @@
 @media (max-width: 900px) {
   .login__container {
     padding-top: 232px;
+    padding-bottom: 50px;
   }
 }
 
@@ -110,6 +126,7 @@
   .login__container {
     width: 260px;
     padding-top: 56px;
+    padding-bottom: 30px;
   }
 
   .login__logo {
@@ -126,11 +143,17 @@
     margin-top: 80px;
   }
 
+
   .login__save {
-    margin-top: 309px;
+        font-size: 12px;
+    line-height: 14.52px;
   }
 
   .login__signup {
     font-size: 12px;
+  }
+
+  .form {    
+    height: 547px;
   }
 }

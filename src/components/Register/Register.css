@@ -1,13 +1,18 @@
 .register {
   background: #FFFFFF;
-  min-height: 100%;
-  width: 100%;
+  height: 100vh;
+  width: 100%;  
 }
 
 .register__container {
   margin: 0 auto;
   padding-top: 70px;
   width: 396px;
+  height: 100%;
+  padding-bottom: 70px;
+  box-sizing: border-box;
+  display: flex;
+  flex-direction: column;
 }
 
 .register__logo {
@@ -27,10 +32,21 @@
   font-style: normal;
   font-weight: 500;
   line-height: normal;
+  margin-bottom: 0;
+}
+
+
+.form {
+  display: flex;
+  flex-direction: column;
+  height: 420px;
+  justify-content: stretch;
+  
 }
 
 .form__subtitle {
-  margin-top: 26px;
+  margin: 0;
+  margin-top: 24px;
   color: #A0A0A0;
   font-size: 10px;
   font-style: normal;
@@ -58,7 +74,7 @@
 }
 
 .register__save {
-  margin: 154px auto 0 auto;
+  margin: auto auto 0 auto;
   background: transparent;
   border: none;
   display: block;
@@ -102,6 +118,7 @@
 @media (max-width: 900px) {
   .register__container {
     padding-top: 232px;
+    padding-bottom: 50px;
   }
 }
 
@@ -109,6 +126,7 @@
   .register__container {
     width: 260px;
     padding-top: 56px;
+    padding-bottom: 30px;
   }
 
   .register__logo {
@@ -126,12 +144,15 @@
   }
 
   .register__save {
-    margin: 242px auto 0 auto;
-    font-size: 12px;
+        font-size: 12px;
     line-height: 14.52px;
   }
 
   .register__signup {
     font-size: 12px;
+  }
+
+  .form {    
+    height: 547px;
   }
 }
