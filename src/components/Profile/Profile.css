@@ -187,7 +187,7 @@
   }
 
   .profile__buttons {
-    padding-bottom: 88px;
+    padding-bottom: 70px;
   }
 
   .profile__logout {
@@ -201,6 +201,10 @@
     width: 260px;
     font-size: 12px;
     line-height: 14.52px;
+  }
+
+  .profile__form {
+    height: 486px;
   }
 }
 
@@ -220,7 +224,7 @@
   .profile__form {
     padding: 0px 30px 0px 30px;
     width: 260px;
-    height: 670px;
+    height: 596px;
   }
 
   .profile__container {
@@ -244,7 +248,7 @@
   }
 
   .profile__buttons {
-    padding-bottom: 103px;
+    padding-bottom: 30px;
   }
 
   .profile__save {
