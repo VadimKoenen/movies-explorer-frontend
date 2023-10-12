@@ -18,7 +18,7 @@ function Register(props) {
             name="name"
             required
             id="name"
-            placeholder="имя"
+            placeholder="Введите имя"
           />
           <span className="mesto-name-error form__item-error form__item-error_field_name"></span>
           <p className="form__subtitle">E-mail</p>
@@ -26,7 +26,7 @@ function Register(props) {
             type="email"
             className="register__input"
             name="email"
-            placeholder="e-mail"
+            placeholder="Введите e-mail"
             required
             id="email"
           />
@@ -37,7 +37,7 @@ function Register(props) {
             className="register__input"
             name="password"
             id="password"
-            placeholder="пароль"
+            placeholder="Введите пароль"
             required
             minLength={2}
             maxLength={30}

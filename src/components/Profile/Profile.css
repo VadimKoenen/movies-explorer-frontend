@@ -1,21 +1,26 @@
 .App {
   background-color: #FAFAFA;
-  max-height: 100vh;
+  height: 100vh;
   box-sizing: border-box;
   display: flex;
   flex-direction: column;
+ 
+  box-sizing: content-box;
 }
 
 .profile {
   background-color: #FAFAFA;
-  height: calc(100vh - 77px);
+   
+}
+
+.profile__content {
+  background-color: #FAFAFA;
+  height: 100%;
   max-width: 410px;
   margin: 0 auto 0 auto;
   display: flex;
   flex-direction: column;
 }
-
-
 .profile__form {
   display: flex;
   flex-direction: column;
@@ -40,7 +45,7 @@
 
 .profile__buttons {
   flex-grow: 1;
-  margin-top: auto;
+  margin-top: 185px;;
   display: flex;
   flex-direction: column;
   padding-bottom: 70px;
@@ -188,6 +193,7 @@
 
   .profile__buttons {
     padding-bottom: 70px;
+    margin-top: 175px;
   }
 
   .profile__logout {
@@ -204,7 +210,7 @@
   }
 
   .profile__form {
-    height: 486px;
+    height: 489px;
   }
 }
 
@@ -212,9 +218,9 @@
 
 @media (max-width: 500px) {
 
-  .profile {
+  .profile__content {
     background-color: #FAFAFA;
-    height: calc(100vh - 70px);
+    height: calc(100vh - 76px);
   }
 
   .profile__title {
@@ -225,6 +231,7 @@
     padding: 0px 30px 0px 30px;
     width: 260px;
     height: 596px;
+    margin: 0 auto;
   }
 
   .profile__container {

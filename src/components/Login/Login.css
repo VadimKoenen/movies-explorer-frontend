@@ -1,16 +1,15 @@
 .login {
   background: #FFFFFF;
   height: 100vh;
-  width: 100%;  
+  width: 100%;
 }
 
 .login__container {
   margin: 0 auto;
   padding-top: 70px;
-  width: 396px;
-  height: 100%;
   padding-bottom: 70px;
-  box-sizing: border-box;
+  width: 396px;
+  box-sizing: content-box;
   display: flex;
   flex-direction: column;
 }
@@ -73,7 +72,8 @@
 }
 
 .login__save {
-  margin: auto auto 0 auto;
+  margin: 225px auto 0 auto;
+  ;
   background: transparent;
   border: none;
   display: block;
@@ -87,7 +87,7 @@
   height: 45px;
   background: #3456F3;
   border-radius: 3px;
-  
+
 }
 
 .login__signup {
@@ -145,15 +145,16 @@
 
 
   .login__save {
-        font-size: 12px;
+    font-size: 12px;
     line-height: 14.52px;
+    margin-top: 313px;
   }
 
   .login__signup {
     font-size: 12px;
   }
 
-  .form {    
+  .form {
     height: 547px;
   }
 }

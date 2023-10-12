@@ -1,6 +1,6 @@
 .about-me {
   background: #FAFAFA;
-  padding-bottom: 122px;
+  padding: 0px 70px 122px 70px;
   
 }
 
@@ -158,7 +158,7 @@
 
 @media (max-width: 900px) {
   .about-me {
-    padding-bottom: 93px;
+    padding: 0px 50px 93px 50px;
   }
 
   .about-me__title {
@@ -247,7 +247,7 @@
 
 @media (max-width: 500px) {
   .about-me {
-    padding-bottom: 74px;
+    padding: 0px 14px 74px 14px;
   }
 
   .about-me__title {

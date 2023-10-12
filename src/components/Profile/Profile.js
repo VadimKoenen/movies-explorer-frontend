@@ -5,7 +5,7 @@ import Header from '../Header/Header'
 
 const currentUser = { name: "Vadim", email: "mail@mail.com" }
 
-function Profile({ isMainPage, isLoggedIn, handleInputChange, isEdit, isSave, isDisabled }) {
+function Profile({ isMainPage, isLoggedIn, handleInputChange, isEdit, isSave, isDisabled, handleSave }) {
 
   return (
     <>
@@ -14,6 +14,7 @@ function Profile({ isMainPage, isLoggedIn, handleInputChange, isEdit, isSave, is
         isLoggedIn={isLoggedIn}>
       </Header>
       <section className="profile">
+        <div className="profile__content">
         <h1 className="profile__title">Привет, {currentUser.name}!</h1>
         <form
           className="profile__form"
@@ -29,7 +30,7 @@ function Profile({ isMainPage, isLoggedIn, handleInputChange, isEdit, isSave, is
               name="name"
               className="profile__input"
               id="profile__profile-name-input"
-              placeholder="Имя"
+              placeholder="Введите имя"
               required
               minLength="2"
               maxLength="20"
@@ -45,7 +46,7 @@ function Profile({ isMainPage, isLoggedIn, handleInputChange, isEdit, isSave, is
               type="text"
               name="email"
               className="profile__input"
-              placeholder="e-mail"
+              placeholder="Введите e-mail"
               required
               minLength="2"
               maxLength="20"
@@ -55,8 +56,9 @@ function Profile({ isMainPage, isLoggedIn, handleInputChange, isEdit, isSave, is
           <div className='profile__buttons'>
             <button
               className={isSave ? "profile__disabled" : "profile__change-data"}
-              type="submit"
+              type="button"
               aria-label="change data"
+              onClick={handleSave}
             >
               Редактировать
             </button>
@@ -68,7 +70,7 @@ function Profile({ isMainPage, isLoggedIn, handleInputChange, isEdit, isSave, is
               Выйти из аккаунта
             </Link>
             <span className={isSave ? "profile__error" : "profile__disabled"}
-            >2</span>
+            ></span>
             <button
               type="submit"
               aria-label="save"
@@ -79,6 +81,7 @@ function Profile({ isMainPage, isLoggedIn, handleInputChange, isEdit, isSave, is
             </button>
           </div>
         </form>
+        </div>
       </section>
     </>
   );

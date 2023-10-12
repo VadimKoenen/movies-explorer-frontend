@@ -1,6 +1,6 @@
 .promo {
   background: #FAFAFA;
-  padding-bottom: 97px;
+  padding: 0px 70px 97px 70px;
 }
 
 .promo__title {
@@ -114,7 +114,7 @@
 
 @media (max-width: 1025px) {
   .promo {
-    padding-bottom: 78px;
+    padding: 0px 50px 78px 50px;
   }
 
   .promo__title {
@@ -178,7 +178,7 @@
 
 @media (max-width: 500px) {
   .promo {
-    padding-bottom: 65px;
+    padding: 0px 18px 65px 18px;
   }
 
   .promo__title {

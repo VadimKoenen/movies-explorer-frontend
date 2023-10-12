@@ -9,7 +9,7 @@ return (
     <form className="search">
       <img className="search__logo" alt="лупа" src={logo} />
       <div className="search__form">
-        <div className="form form_films">
+        <div className="form_films">
           <input
             value={props.nameFilm}
             onChange={handleChangeFilm}

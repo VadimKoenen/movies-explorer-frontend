@@ -17,6 +17,7 @@ function App() {
   const [isMainPage, setIsMainPage] = useState(false);
   const [isMoviePage, setIsMoviePage] = useState(false);
   const [isDisabled, setIsDisabled] = useState (false);
+  const [isSave, setIsSave] = useState(false)
 
 
 
@@ -32,6 +33,10 @@ function App() {
     setIsMoviePage(false);
   }, [path]);
 
+
+  function handleSave() {
+    setIsSave(true);
+      }
 
 
   return (
@@ -78,10 +83,12 @@ function App() {
             path="/profile"
             element={
               <Profile
+                setIsSave={setIsSave}
                 isLoggedIn={true}
                 isMainPage={isMainPage}
-                isSave={false}
+                handleSave={handleSave}
                 isDisabled={isDisabled}
+                isSave={isSave}
               //signOut={signOut}
               />
             }

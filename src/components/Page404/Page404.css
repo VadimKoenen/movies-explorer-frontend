@@ -1,13 +1,24 @@
 .page404 {
-  width: 100%;
+  background: #FFFFFF;
   background: #FFFFFF;
   height: 100vh;
+  width: 100%;
+}
+
+.page404__content {
+  margin: 0 auto;  
+  width: 396px;
+  box-sizing: content-box;
+  display: flex;
+  flex-direction: column;
+  padding-bottom: 70px;
+  padding-top: 70px;
 }
 
 .page404__title {
   text-align: center;
   margin: 0;
-  padding-top: 246px;
+  padding-top: 176px;
   font-size: 140px;
   font-style: normal;
   font-weight: 400;
@@ -24,7 +35,7 @@
 }
 
 .page404__link {
-  margin: 184px auto 0 auto;
+  margin: 168px auto 0 auto;
   text-decoration: none;
   display: block;
   text-align: center;
@@ -41,14 +52,26 @@
 
 @media (max-width: 900px) {
   .page404__title {
-    padding-top: 407px;
+    padding-top: 365px;
   }
+
+  .page404__content {
+    padding-bottom: 40px;
+    padding-top: 40px;
+  }
+
 }
 
 
 @media (max-width: 500px) {
+  .page404__content {
+    padding-bottom: 30px;
+    padding-top: 30px;
+    width: 320px;
+  }
+
   .page404__title {
-    padding-top: 329px;
+    padding-top: 299px;
     font-size: 80px;
   }
 
@@ -59,7 +82,7 @@
   }
 
   .page404__link {
-    margin-top: 284px;
+    margin-top: 271px;
     font-size: 12px;
   }
 }

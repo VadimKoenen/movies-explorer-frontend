@@ -19,7 +19,7 @@ function Login(props) {
             type="email"
             className="login__input"
             name="email"
-            placeholder="e-mail"
+            placeholder="Введите e-mail"
             required
             id="email"
           />
@@ -29,7 +29,7 @@ function Login(props) {
             type="text"
             className="login__input"
             name="password"
-            placeholder="пароль"
+            placeholder="Введите пароль"
             id="password"
             required
             minLength={2}

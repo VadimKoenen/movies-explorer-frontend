@@ -1,16 +1,15 @@
 .register {
   background: #FFFFFF;
   height: 100vh;
-  width: 100%;  
+  width: 100%;
 }
 
 .register__container {
   margin: 0 auto;
   padding-top: 70px;
-  width: 396px;
-  height: 100%;
   padding-bottom: 70px;
-  box-sizing: border-box;
+  width: 396px;
+  box-sizing: content-box;
   display: flex;
   flex-direction: column;
 }
@@ -41,7 +40,7 @@
   flex-direction: column;
   height: 420px;
   justify-content: stretch;
-  
+
 }
 
 .form__subtitle {
@@ -144,15 +143,16 @@
   }
 
   .register__save {
-        font-size: 12px;
+    font-size: 12px;
     line-height: 14.52px;
+    margin-top: 246px;
   }
 
   .register__signup {
     font-size: 12px;
   }
 
-  .form {    
+  .form {
     height: 547px;
   }
 }
