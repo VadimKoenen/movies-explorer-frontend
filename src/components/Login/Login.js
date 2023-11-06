@@ -1,19 +1,50 @@
 import './Login.css';
 import logo from '../../images/logo.svg';
 import { Link } from 'react-router-dom';
+import useValidation from '../../hooks/useValidation';
 
-function Login(props) {
+function Login({
+  handleLogin,  
+  setIsLoggedIn,
+  isLoading,
+  setErrorLogin,
+  errorLogin,
+}) {
+
+  const { 
+    values,
+    errors,
+    handleChange,
+    isValid,
+    resetForm 
+  } = useValidation();
+
+  const handleSubmit = (e) => {
+    e.preventDefault(); 
+    handleLogin(values);
+    ///.then(() => {
+    ///})
+    ///.catch((err) => {
+    ///  console.log(err, 'ошибка авторизации')      
+   ///   setIsLoggedIn(false);
+      resetForm();
+    //})
+  };
+
   return (
     <div className="login">
       <div className="login__container">
         <Link to="/">
-          <img src={logo} 
-          alt="логотип" 
-          className="login__logo">            
+          <img src={logo}
+            alt="логотип"
+            className="login__logo">
           </img>
         </Link>
         <h1 className="login__title">Рады видеть!</h1>
-        <form className="form">
+        <form className="form" 
+        onSubmit={handleSubmit}
+        disabled={!isValid}
+        >
           <p className="form__subtitle">E-mail</p>
           <input
             type="email"
@@ -22,8 +53,15 @@ function Login(props) {
             placeholder="Введите e-mail"
             required
             id="email"
+            value={values.email || ''}
+            onChange={handleChange}           
+            disabled={isLoading}
           />
-          <span className="mesto-name-error form__item-error form__item-error_field_name"></span>
+          <span 
+          className="login__error"
+          >
+            {errors.email}
+          </span>
           <p className="form__subtitle">Пароль</p>
           <input
             type="text"
@@ -34,13 +72,25 @@ function Login(props) {
             required
             minLength={2}
             maxLength={30}
+            value={values.password || ''}
+            onChange={handleChange}
+            disabled={isLoading}
           />
-          <span className="mesto-name-error form__item-error form__item-error_field_name"></span>
-          <button className="login__save" type="submit">
-            Войти
+          <span 
+          className="login__error"
+          >
+          {errors.password || errorLogin}
+          </span>
+          <button className="login__save" 
+          type="submit" 
+          disabled={!isValid}>
+          {isLoading ? 'Вход...' : 'Войти'}
           </button>
         </form>
-        <Link to="/signup" className="login__signup">
+        <Link 
+        to="/signup" 
+        className="login__signup"
+        >
           Ещё не зарегистрированы?{" "}
           <span className="login__another-signup login__another-signup_active">
             Регистрация

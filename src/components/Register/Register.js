@@ -1,8 +1,32 @@
 import './Register.css';
 import logo from '../../images/logo.svg';
 import { Link } from 'react-router-dom';
+import useValidation from '../../hooks/useValidation';
 
-function Register(props) {
+function Register({
+  handleRegister,  
+  setIsLoggedIn,
+  isLoading,
+  setErrorRegister,
+  errorRegister,
+}) 
+
+{
+const { 
+  values,
+  errors,
+  handleChange,
+  isValid,
+  resetForm 
+} = useValidation();
+
+const handleSubmit = (e) => {
+  e.preventDefault();
+  handleRegister(values)
+  resetForm();
+};
+
+
   return (
     <div className="register">
       <div className="register__container">
@@ -10,7 +34,11 @@ function Register(props) {
           <img src={logo} alt="логотип" className="register__logo"></img>
         </Link>
         <h1 className="register__title">Добро пожаловать!</h1>
-        <form className="form">
+        <form 
+        className="form"
+        onSubmit={(e) => handleSubmit(e)}
+        disabled={!isValid}
+        >
           <p className="form__subtitle">Имя</p>
           <input
             type="text"
@@ -19,8 +47,12 @@ function Register(props) {
             required
             id="name"
             placeholder="Введите имя"
+            value={values.name || ''}
+            onChange={handleChange}
           />
-          <span className="mesto-name-error form__item-error form__item-error_field_name"></span>
+          <span className="register__error">
+          {errors.name}
+          </span>
           <p className="form__subtitle">E-mail</p>
           <input
             type="email"
@@ -29,8 +61,13 @@ function Register(props) {
             placeholder="Введите e-mail"
             required
             id="email"
+            value={values.email || ''}
+            onChange={handleChange}
+            pattern="^[a-zA-Z0-9\-.]{1,}@[a-zA-Z0-9\-.]{1,}\.[a-zA-Z]{2,5}$"
           />
-          <span className="mesto-name-error form__item-error form__item-error_field_name"></span>
+          <span className="register__error">
+          {errors.email}
+          </span>
           <p className="form__subtitle">Пароль</p>
           <input
             type="text"
@@ -41,10 +78,18 @@ function Register(props) {
             required
             minLength={2}
             maxLength={30}
+            value={values.password || ''}
+            onChange={handleChange}
           />
-          <span className="mesto-name-error form__item-error form__item-error_field_name"></span>
-          <button className="register__save" type="submit">
-            Зарегистрироваться
+          <span className="register__error">
+          {errors.password || errorRegister}
+          </span>
+          <button 
+          className="register__save" 
+          type="submit"
+          disabled={!isValid}
+          >
+          {isLoading ? 'Регистрация...' : 'Зарегистрироваться'} 
           </button>
         </form>
         <Link to="/signin" className="register__signup">

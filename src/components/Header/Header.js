@@ -68,14 +68,14 @@ function Header({ props, isMainPage, userEmail, deleteToken, isLoggedIn, isPopup
               <NavLink
                 className="header__button header__button-unloggin"
                 to="/signup"
-                activeClassName="header__button-active"
+                
               >
                 {'Регистрация'}
               </NavLink>
               <NavLink
                 className="header__button header__button-signin header__button-unloggin "
                 to="/signin"
-                activeClassName="header__button-active"
+                
               >
                 {'Войти'}
               </NavLink>

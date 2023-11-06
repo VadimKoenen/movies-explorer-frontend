@@ -1,40 +1,31 @@
 import React from 'react';
 import './MoviesList.css';
 import Movie from '../Movie/Movie';
-import More from '../More/More';
 
-function MoviesList( {isMoviePage} ) {
+function MoviesList({
+    isMoviePage,
+    movies,
+    handleSaveMovie,
+    handleDeleteMovie,
+}) {
     return (
         <section className="movie-list">
 
             <ul className="movie-list__container">
-                <Movie
-                    isMoviePage={isMoviePage}
-                />
-                <Movie
-                    isMoviePage={isMoviePage}
-                />
-                <Movie
-                    isMoviePage={isMoviePage}
-                />
-                <Movie
-                    isMoviePage={isMoviePage}
-                />
-                <Movie
-                    isMoviePage={isMoviePage}
-                />
-                <Movie
-                    isMoviePage={isMoviePage}
-                />
-                <Movie
-                    isMoviePage={isMoviePage}
-                />
-                <Movie
-                    isMoviePage={isMoviePage}
-                />
+                {movies.length > 0 && movies.map((movie, index) => (
+                    <li key={index}>
+                        <Movie
+                            key={index}
+                            isMoviePage={isMoviePage}
+                            movie={movie}
+                            handleSaveMovie={handleSaveMovie} //попадает из movies
+                            handleDeleteMovie={handleDeleteMovie}
+                        />
+                    </li>
+                ))}
             </ul>
 
-            <More />
+            
 
         </section>
     );

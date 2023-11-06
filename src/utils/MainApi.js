@@ -1,4 +1,4 @@
-import { MAIN_BASEURL } from '../utils/constants';
+import { MAIN_BASEURL } from './constants';
 
 class MainApi {
   constructor({ baseUrl, headers }) {
@@ -13,77 +13,33 @@ class MainApi {
     return Promise.reject(`Ошибка: ${res.status}`);
   }
 
-  /* sign-up */
-  register(name, email, password) {
-    return fetch(`${this._baseUrl}/signup`, {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify({ name, email, password }),
-    }).then(this._checkResponse);
-  }
-  /* sign-in */
-  login(email, password) {
-    return fetch(`${this._baseUrl}/signin`, {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify({ email, password }),
-    }).then(this._checkResponse);
-  }
-
-  checkToken(jwt) {
-    return fetch(`${this._baseUrl}/users/me`, {
-      method: "GET",
-      headers: {
-        "Content-Type": "application/json",
-        Authorization: `Bearer ${jwt}`,
-      },
-    }).then(this._checkResponse);
-  }
-
-  // get user
-  getUserInfo() {
-    return fetch(`${this._baseUrl}/users/me`, {
-      headers: this._headers,
-    }).then(this._checkResponse);
-  }
-
-  //edit user info
-  changeUserInfo(data) {
-    return fetch(`${this._baseUrl}/users/me`, {
-      method: "PATCH",
-      headers: this._headers,
-      body: JSON.stringify(data),
-    }).then(this._checkResponse);
-  }
-
-  getSavedMovies() {
+  getInitialMovies() {
     return fetch(`${this._baseUrl}/movies`, {
-      headers: this._headers,
-    }).then(this._checkResponse);
+      headers: {
+        "Content-Type": "application/json",
+      },
+      credentials: "include",
+    }).then((res) => this._checkResponse(res));
   }
+
 
   saveMovie(movie) {
     return fetch(`${this._baseUrl}/movies`, {
       method: "POST",
       headers: this._headers,
+      credentials: "include",
       body: JSON.stringify(movie),
-    }).then(this._checkResponse);
+    }).then((res) => this._checkResponse(res));
   }
 
   deleteMovie(movieId) {
     return fetch(`${this._baseUrl}/movies/${movieId}`, {
       method: "DELETE",
       headers: this._headers,
-    }).then(this._checkResponse);
+      credentials: "include",
+    }).then((res) => this._checkResponse(res));
   }
 
-  setToken() {
-    this._headers.authorization = `Bearer ${localStorage.getItem('jwt')}`;
-  }
 }
 
 const mainApi = new MainApi ({

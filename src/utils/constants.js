@@ -1,3 +1,8 @@
+export const MOVIES_API = "https://api.nomoreparties.co/beatfilm-movies";
+export const BASE_URL = "http://localhost:3000";
+export const MAIN_BASEURL = 'http://localhost:3000';
+export const MOVIES_URL = "https://api.nomoreparties.co";
+
 /*
 
 export const profileEditButton = document.querySelector('.profile__edit-button');

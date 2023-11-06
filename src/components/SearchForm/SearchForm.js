@@ -35,7 +35,7 @@ return (
           //onClick={handleKorot}
         >
         </input>
-        <label for="shortfilm" className="search__korot">Короткометражки</label>
+        <label htmlFor="shortfilm" className="search__korot">Короткометражки</label>
       </div>
     </form>
     <div className="g-line"></div>
