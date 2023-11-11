@@ -22,9 +22,9 @@ function Header({ props, isMainPage, userEmail, deleteToken, isLoggedIn, isPopup
     <header className={isMainPage ? "header header_main" : "header"}>
       <div className="header__container">
         <Link to="/">
-          <img src={logo} 
-          alt="логотип" 
-          className="header__logo">            
+          <img src={logo}
+            alt="логотип"
+            className="header__logo">
           </img>
         </Link>
 
@@ -68,14 +68,14 @@ function Header({ props, isMainPage, userEmail, deleteToken, isLoggedIn, isPopup
               <NavLink
                 className="header__button header__button-unloggin"
                 to="/signup"
-                
+
               >
                 {'Регистрация'}
               </NavLink>
               <NavLink
                 className="header__button header__button-signin header__button-unloggin "
                 to="/signin"
-                
+
               >
                 {'Войти'}
               </NavLink>

@@ -1,14 +1,21 @@
 import React from 'react';
 import './More.css';
 
-function More() {
+function More({ handleMoreFilms, isRenderedMore }) {
+
+
   return (
     <div className="more container">
-      <button
-        className="more__button"
-        aria-label="show more films"
-      >Ещё
-      </button>
+
+      {isRenderedMore ?
+        <button
+          className="more__button"
+          aria-label="show more films"
+          onClick={handleMoreFilms}
+        >Ещё
+        </button>
+
+        : ""}
     </div>
 
   );

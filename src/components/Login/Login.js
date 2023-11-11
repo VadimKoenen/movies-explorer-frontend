@@ -22,13 +22,8 @@ function Login({
   const handleSubmit = (e) => {
     e.preventDefault(); 
     handleLogin(values);
-    ///.then(() => {
-    ///})
-    ///.catch((err) => {
-    ///  console.log(err, 'ошибка авторизации')      
-   ///   setIsLoggedIn(false);
-      resetForm();
-    //})
+    resetForm();
+    
   };
 
   return (

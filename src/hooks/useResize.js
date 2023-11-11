@@ -5,8 +5,6 @@ export const useResize = () => {
 
   useEffect(() => {
     const handleResize = (event) => {
-      // самовызывающаяся функция throttle для уменьшения 
-      // количества срабатываний resize
       (function throttle() { 
         setTimeout(() => {
           setWidth(event.target.innerWidth)

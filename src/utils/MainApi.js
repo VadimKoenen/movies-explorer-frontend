@@ -1,4 +1,4 @@
-import { MAIN_BASEURL } from './constants';
+import { MAIN_BASEURL, MOVIES_URL } from './constants';
 
 class MainApi {
   constructor({ baseUrl, headers }) {
@@ -24,16 +24,33 @@ class MainApi {
 
 
   saveMovie(movie) {
+
+    let newMovie = {
+      country: movie.country,
+      director: movie.director,
+      duration: movie.duration,
+      year: movie.year,
+      description: movie.description,
+      image: MOVIES_URL + movie.image.url,
+      //image: movie.image.url,
+      trailerLink: movie.trailerLink,
+      thumbnail: MOVIES_URL + movie.image.formats.thumbnail.url,
+      nameRU: movie.nameRU,
+      nameEN: movie.nameEN,
+      movieId: String(movie.id),
+    };
+
+
     return fetch(`${this._baseUrl}/movies`, {
       method: "POST",
       headers: this._headers,
       credentials: "include",
-      body: JSON.stringify(movie),
+      body: JSON.stringify(newMovie),
     }).then((res) => this._checkResponse(res));
   }
 
-  deleteMovie(movieId) {
-    return fetch(`${this._baseUrl}/movies/${movieId}`, {
+  deleteMovie(_id) {
+    return fetch(`${this._baseUrl}/movies/${_id}`, {
       method: "DELETE",
       headers: this._headers,
       credentials: "include",
@@ -42,7 +59,7 @@ class MainApi {
 
 }
 
-const mainApi = new MainApi ({
+const mainApi = new MainApi({
   baseUrl: MAIN_BASEURL,
   headers: {
     'Content-Type': 'application/json',

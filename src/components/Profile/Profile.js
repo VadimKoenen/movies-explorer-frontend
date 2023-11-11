@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import './Profile.css';
 import { Link } from 'react-router-dom';
-import { CurrentUserContext } from "../../contexts/CurrentUserContext";
+import { CurrentUserContext } from '../../contexts/CurrentUserContext';
 import Header from '../Header/Header';
 import useValidation from '../../hooks/useValidation';
 
@@ -9,22 +9,21 @@ import useValidation from '../../hooks/useValidation';
 function Profile({
   isMainPage,
   isLoggedIn,
-  isDisabled,
   handleSave,
   handleChangeProfile,
   handleDeleteToken,
-  setErrorProfile,
   errorProfile,
 }) {
 
   let currentUser = React.useContext(CurrentUserContext);
 
+  console.log(currentUser);
+
   const {
     values,
     errors,
     handleChange,
-    isValid,
-    resetForm
+    isValid
   } = useValidation();
 
   const [isSave, setIsSave] = useState(false)
@@ -37,7 +36,7 @@ function Profile({
     e.preventDefault();
     handleChangeProfile(values);
     setIsSave(false);
-    };
+  };
 
 
   return (

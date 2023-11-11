@@ -5,7 +5,9 @@ import Movie from '../Movie/Movie';
 function MoviesList({
     isMoviePage,
     movies,
+    isLoggedIn,
     handleSaveMovie,
+    requestMessage,
     handleDeleteMovie,
 }) {
     return (
@@ -25,7 +27,7 @@ function MoviesList({
                 ))}
             </ul>
 
-            
+
 
         </section>
     );

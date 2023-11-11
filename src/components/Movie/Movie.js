@@ -17,13 +17,12 @@ function Movie({
 
   function saveOrDelete(e) {
     e.preventDefault();
-    movie.buttonLikeType === "unliked" ? handleSaveMovie(movie) : handleDeleteMovie(isMoviePage ? id : movieId)
-    //всегда если класс анлайк, нужно сохранить карточку, во всех остальных случаях удалять
-  }
-  
+    isMoviePage ? handleSaveMovie(movie) : handleDeleteMovie(isMoviePage ? id : movieId);
+   }
+
 
   return (
-    <li className="movie">
+    <div className="movie">
       <Link
         to={trailerLink}
         aria-label="link trailer"
@@ -41,11 +40,13 @@ function Movie({
           <p className="movie__subtitle">{movieDuration}</p>
         </div>
         <button
-          className={`movie__icon ${isMoviePage ? "movie__icon_type_save" : "movie__icon_type_delete"}`}
-          onClick={isMoviePage ? handleSaveMovie : handleDeleteMovie}
+          className={`movie__icon ${isMoviePage ? "movie__icon_type_save" : "movie__icon_type_delete"}           
+          ${movie.type === "liked" ? "movie__icon_type_save_active" : ""}`}
+          onClick={(e) => saveOrDelete(e)}
+
         ></button>
       </div>
-    </li>
+    </div>
   );
 }
 
