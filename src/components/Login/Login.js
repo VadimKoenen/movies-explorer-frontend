@@ -4,26 +4,24 @@ import { Link } from 'react-router-dom';
 import useValidation from '../../hooks/useValidation';
 
 function Login({
-  handleLogin,  
-  setIsLoggedIn,
+  handleLogin,
   isLoading,
-  setErrorLogin,
   errorLogin,
 }) {
 
-  const { 
+  const {
     values,
     errors,
     handleChange,
     isValid,
-    resetForm 
+    resetForm
   } = useValidation();
 
   const handleSubmit = (e) => {
-    e.preventDefault(); 
+    e.preventDefault();
     handleLogin(values);
     resetForm();
-    
+
   };
 
   return (
@@ -36,9 +34,9 @@ function Login({
           </img>
         </Link>
         <h1 className="login__title">Рады видеть!</h1>
-        <form className="form" 
-        onSubmit={handleSubmit}
-        disabled={!isValid}
+        <form className="form"
+          onSubmit={handleSubmit}
+          disabled={!isValid}
         >
           <p className="form__subtitle">E-mail</p>
           <input
@@ -49,11 +47,11 @@ function Login({
             required
             id="email"
             value={values.email || ''}
-            onChange={handleChange}           
+            onChange={handleChange}
             disabled={isLoading}
           />
-          <span 
-          className="login__error"
+          <span
+            className="login__error"
           >
             {errors.email}
           </span>
@@ -71,20 +69,20 @@ function Login({
             onChange={handleChange}
             disabled={isLoading}
           />
-          <span 
-          className="login__error"
+          <span
+            className="login__error"
           >
-          {errors.password || errorLogin}
+            {errors.password || errorLogin}
           </span>
-          <button className="login__save" 
-          type="submit" 
-          disabled={!isValid}>
-          {isLoading ? 'Вход...' : 'Войти'}
+          <button className="login__save"
+            type="submit"
+            disabled={!isValid}>
+            {isLoading ? 'Вход...' : 'Войти'}
           </button>
         </form>
-        <Link 
-        to="/signup" 
-        className="login__signup"
+        <Link
+          to="/signup"
+          className="login__signup"
         >
           Ещё не зарегистрированы?{" "}
           <span className="login__another-signup login__another-signup_active">

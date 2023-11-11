@@ -53,8 +53,7 @@ function Movies({
       isMiddleScreen ?
         8 :
         5;
-    //сколько карточек показано сейчас?
-    return count + addMovies;
+   return count + addMovies;
   }
 
   const showedMovies = findShowedMovies();

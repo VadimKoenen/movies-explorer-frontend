@@ -4,27 +4,23 @@ import { Link } from 'react-router-dom';
 import useValidation from '../../hooks/useValidation';
 
 function Register({
-  handleRegister,  
-  setIsLoggedIn,
+  handleRegister,
   isLoading,
-  setErrorRegister,
   errorRegister,
-}) 
+}) {
+  const {
+    values,
+    errors,
+    handleChange,
+    isValid,
+    resetForm
+  } = useValidation();
 
-{
-const { 
-  values,
-  errors,
-  handleChange,
-  isValid,
-  resetForm 
-} = useValidation();
-
-const handleSubmit = (e) => {
-  e.preventDefault();
-  handleRegister(values)
-  resetForm();
-};
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    handleRegister(values)
+    resetForm();
+  };
 
 
   return (
@@ -34,10 +30,10 @@ const handleSubmit = (e) => {
           <img src={logo} alt="логотип" className="register__logo"></img>
         </Link>
         <h1 className="register__title">Добро пожаловать!</h1>
-        <form 
-        className="form"
-        onSubmit={(e) => handleSubmit(e)}
-        disabled={!isValid}
+        <form
+          className="form"
+          onSubmit={(e) => handleSubmit(e)}
+          disabled={!isValid}
         >
           <p className="form__subtitle">Имя</p>
           <input
@@ -51,7 +47,7 @@ const handleSubmit = (e) => {
             onChange={handleChange}
           />
           <span className="register__error">
-          {errors.name}
+            {errors.name}
           </span>
           <p className="form__subtitle">E-mail</p>
           <input
@@ -66,7 +62,7 @@ const handleSubmit = (e) => {
             pattern="^[a-zA-Z0-9\-.]{1,}@[a-zA-Z0-9\-.]{1,}\.[a-zA-Z]{2,5}$"
           />
           <span className="register__error">
-          {errors.email}
+            {errors.email}
           </span>
           <p className="form__subtitle">Пароль</p>
           <input
@@ -82,14 +78,14 @@ const handleSubmit = (e) => {
             onChange={handleChange}
           />
           <span className="register__error">
-          {errors.password || errorRegister}
+            {errors.password || errorRegister}
           </span>
-          <button 
-          className="register__save" 
-          type="submit"
-          disabled={!isValid}
+          <button
+            className="register__save"
+            type="submit"
+            disabled={!isValid}
           >
-          {isLoading ? 'Регистрация...' : 'Зарегистрироваться'} 
+            {isLoading ? 'Регистрация...' : 'Зарегистрироваться'}
           </button>
         </form>
         <Link to="/signin" className="register__signup">

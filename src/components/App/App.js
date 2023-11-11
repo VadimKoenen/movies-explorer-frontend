@@ -123,8 +123,7 @@ function App() {
           })
         ) : movies)
       } else if (movies.length === 0) {
-        setMoviesForShow([]);
-        // isLoggedIn && openPopup("Ничего не найдено"); //здесь это нельзя размещать из-за проблем при регистрации
+        setMoviesForShow([]);       
       }
 
     } else {
@@ -319,7 +318,7 @@ function App() {
   }
 
 
-  // поиск по ключевому слову
+  // поиск
   function searchFilm(movies, string) {
     return movies.filter((movie) => {
       return (
