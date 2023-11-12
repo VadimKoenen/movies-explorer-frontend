@@ -66,7 +66,7 @@ function Register({
           </span>
           <p className="form__subtitle">Пароль</p>
           <input
-            type="text"
+            type="password"
             className="register__input"
             name="password"
             id="password"

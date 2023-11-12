@@ -1,5 +1,5 @@
 
-export const baseUrl = ['http://localhost:3000']; /// ['https://api.vkoenen.movies.nomoredomainsrocks.ru']; ///['http://localhost:3000'];
+export const baseUrl =  ['https://api.vkoenen.movies.nomoredomainsrocks.ru']; ///['http://localhost:3000'];
 
 const checkResponce = (res) =>
   res.ok ? res.json() : Promise.reject(`Ошибка: ${res.status}`);

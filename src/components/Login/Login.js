@@ -57,7 +57,7 @@ function Login({
           </span>
           <p className="form__subtitle">Пароль</p>
           <input
-            type="text"
+           type="password"
             className="login__input"
             name="password"
             placeholder="Введите пароль"
