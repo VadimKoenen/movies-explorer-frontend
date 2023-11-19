@@ -79,7 +79,9 @@ function Movies({
       setIsRenderedMore(false);
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [movies, showedMovies]);
+  }, [
+    movies, 
+    showedMovies]);
 
   function handleSearch(query, e) {
     e.preventDefault();

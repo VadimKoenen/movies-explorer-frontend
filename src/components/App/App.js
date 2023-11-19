@@ -48,7 +48,10 @@ function App() {
   const [isConfirmPopupOpen, setConfirmPopupOpen] = useState(false);
   const [messagePopup, setMessagePopup] = useState('');
 
-
+  console.log(basicMovies, 'basicMovies');
+  console.log(moviesForShow, 'moviesForShow');
+  console.log(savedMovies, 'savedMovies');
+  console.log(movies, 'movies')
 
   // функции
   function handleRegister({ name, email, password }) {
@@ -140,6 +143,15 @@ function App() {
       .then(() => setIsLoggedIn(false))
       .then(() => setSearch(false))
       .then(() => {
+        localStorage.removeItem("isShortMovies");
+        localStorage.removeItem("movies");
+        localStorage.removeItem("savedMovies");
+        localStorage.removeItem("moviesSearchQuery");
+        localStorage.removeItem("isShortMovies");
+        localStorage.removeItem("currentUser");
+        localStorage.removeItem("savedFilteredMovies");
+        localStorage.removeItem("basicMovies");
+        localStorage.removeItem('loggedIn');
         localStorage.clear();
         navigate("/", { replace: true });
       })
@@ -149,7 +161,6 @@ function App() {
       .finally(() => {
       });
   };
-
 
 
 
@@ -366,51 +377,56 @@ function App() {
   }, [path]);
 
 
-  //получение сохраненных фильмов
-  useEffect(() => {
-    if (isLoggedIn) {
-      MainApi
-        .getInitialMovies()
-        .then((movies) => {
-          const deleteIconMovies = movies.map((movie) => {
-            return {
-              ...movie, type: "delete", key: movie._id
-            }
-          })
-          setSavedMovies(deleteIconMovies);
-          localStorage.setItem("savedMovies", JSON.stringify(deleteIconMovies))
+
+
+ //получение сохраненных фильмов в saved-films
+ //получение списка фильмов от сервера с монго, потом всем присваивается тип, 
+ //который потом определяет параметры удаления и иконку кнопки
+ useEffect(() => {
+  if (isLoggedIn) {
+    MainApi
+      .getInitialMovies()
+      .then((movies) => {
+        const deleteIconMovies = movies.map((movie) => {
+          return {
+            ...movie, type: "delete", key: movie._id
+            //...movie, type: "liked", key: movie._id
+          }
         })
-        .catch(console.error)
+        setSavedMovies(deleteIconMovies);
+        localStorage.setItem("savedMovies", JSON.stringify(deleteIconMovies))
+      })
+      .catch(console.error)
+  }
+}, [isLoggedIn])
+
+
+
+ //Список фильмов для отражения
+ useEffect(() => {
+  if (path.pathname === "/movies") {
+   // localStorage.setItem("movies", JSON.stringify(movies));
+    if (movies.length > 0) {
+      setMoviesForShow(isShortMovies ? (
+        movies.filter((movie) => {
+          return (
+            movie.duration <= 40
+          )
+        })
+      ) : movies)
+    } else if (movies.length === 0) {
+      setMoviesForShow([]);
     }
-  }, [isLoggedIn])
 
-
-
-  //Список фильмов для отражения
-  useEffect(() => {
-    if (path.pathname === "/movies") {
-      localStorage.setItem("movies", JSON.stringify(movies));
-      if (movies.length > 0) {
-        setMoviesForShow(isShortMovies ? (
-          movies.filter((movie) => {
-            return (
-              movie.duration <= 40
-            )
-          })
-        ) : movies)
-      } else if (movies.length === 0) {
-        setMoviesForShow([]);
-      }
-
-    }
-  },
-    [
-      path,
-      savedMovies,
-      movies,
-      isShortMovies,
-      isLoggedIn,
-    ]);
+  }
+},
+  [
+    path,
+    savedMovies,
+    movies,
+    isShortMovies,
+    isLoggedIn,
+  ]);
 
 
 
@@ -440,6 +456,8 @@ function App() {
     isShortSavedMovies,
     isLoggedIn,
   ]);
+
+
 
 
   //обнуление поиска сохраненных фильмов
