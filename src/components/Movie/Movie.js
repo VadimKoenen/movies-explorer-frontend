@@ -3,6 +3,8 @@ import { Link } from 'react-router-dom';
 import './Movie.css';
 import { useState, useEffect } from "react";
 import { MOVIES_URL } from "../../utils/constants";
+import {movieDuration} from '../../utils/constants'
+
 
 function Movie({
   isMoviePage,
@@ -11,13 +13,13 @@ function Movie({
   handleDeleteMovie
 }) {
 
-  const { id, nameRU, duration, trailerLink, movieId } = movie;
-  let movieDuration = `${Math.floor(duration / 60)}ч ${duration % 60}м`
+const { id, nameRU, duration, trailerLink, movieId } = movie;
+let movieDuration = `${Math.floor(duration / 60)}ч ${duration % 60}м`;
 
 
   function saveOrDelete(e) {
     e.preventDefault();
-    isMoviePage ? handleSaveMovie(movie) : handleDeleteMovie(isMoviePage ? id : movieId);
+    movie.type === "unliked" ? handleSaveMovie(movie) : handleDeleteMovie(isMoviePage ? id : movieId);
    }
 
 
@@ -40,8 +42,8 @@ function Movie({
           <p className="movie__subtitle">{movieDuration}</p>
         </div>
         <button
-          className={`movie__icon ${isMoviePage ? "movie__icon_type_save" : "movie__icon_type_delete"}           
-          ${movie.type === "liked" ? "movie__icon_type_save_active" : ""}`}
+          className={`movie__icon ${movie.type === "liked" ? "movie__icon_type_save_active" : movie.type === "unliked" ? "movie__icon_type_save" : "movie__icon_type_delete"}           
+          `}
           onClick={(e) => saveOrDelete(e)}
 
         ></button>

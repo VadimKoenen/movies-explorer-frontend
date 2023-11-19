@@ -19,7 +19,8 @@ function SavedMovies({
     setIsShortSavedMovies,
     movies,
     isSearch,
-    setSearch,
+    setSearch,    
+    openConfirmPopup
 }) {
 
     const [savedQuery, setSavedQuery] = useState("");
@@ -27,12 +28,13 @@ function SavedMovies({
     function handleSearch(query, e) {
         e.preventDefault();
         if (query.length === 0) {
-            console.log("Нужно ввести ключевое слово")
+            console.log("Нужно ввести ключевое слово");
+            openConfirmPopup("Нужно ввести ключевое слово");
             return;
         }
         handleSearchMovie(query, e);
+        setSavedQuery(query);
     }
-
 
     return (
         <>
@@ -51,6 +53,7 @@ function SavedMovies({
                     setIsShortSavedMovies={setIsShortSavedMovies}
                     isSearch={isSearch}
                     setSearch={setSearch}
+                    savedQuery={savedQuery}
                 />
                 {isLoading ? <Preloader />
                     : <MoviesList

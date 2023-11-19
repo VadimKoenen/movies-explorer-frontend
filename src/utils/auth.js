@@ -1,11 +1,11 @@
 
-export const baseUrl =  ['https://api.vkoenen.movies.nomoredomainsrocks.ru']; ///['http://localhost:3000'];
+import { MAIN_BASEURL } from './constants';
 
 const checkResponce = (res) =>
   res.ok ? res.json() : Promise.reject(`Ошибка: ${res.status}`);
 
   export const register = ({ name, email, password }) => {
-    return fetch(`${baseUrl}/signup`, {
+    return fetch(`${MAIN_BASEURL}/signup`, {
       method: "POST",
       credentials: "include",
       headers: {
@@ -16,7 +16,7 @@ const checkResponce = (res) =>
   };
 
   export const login = ({ email, password }) => {
-    return fetch(`${baseUrl}/signin`, {
+    return fetch(`${MAIN_BASEURL}/signin`, {
       method: "POST",
       credentials: "include",
       headers: {
@@ -27,7 +27,7 @@ const checkResponce = (res) =>
   };
   
 export const checkToken = () => {
-  return fetch(`${baseUrl}/users/me`, {
+  return fetch(`${MAIN_BASEURL}/users/me`, {
     method: "GET",
     credentials: "include",
     headers: {
@@ -38,7 +38,7 @@ export const checkToken = () => {
 
 
 export const updateUser = ({ name, email }) => {
-  return fetch(`${baseUrl}/users/me`, {
+  return fetch(`${MAIN_BASEURL}/users/me`, {
     method: "PATCH",
     credentials: "include",
     headers: {
@@ -54,11 +54,13 @@ export const updateUser = ({ name, email }) => {
 };
 
 export const logout = () => {
-  return fetch(`${baseUrl}/signout`, {
+  return fetch(`${MAIN_BASEURL}/signout`, {
     method: "GET",
     credentials: "include",
     headers: {
       "Content-Type": "application/json",
     },
-  }).then((res) => checkResponce(res));
+  }).then((res) => {
+  return checkResponce(res)
+});
 };

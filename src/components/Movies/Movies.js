@@ -24,6 +24,7 @@ function Movies({
   setIsShortSavedMovies,
   setSearch,
   isSearch,
+  openConfirmPopup,
 }) {
 
   const [addMovies, setAddMovies] = useState(0);
@@ -33,26 +34,29 @@ function Movies({
     localStorage.getItem("moviesSearchQuery") || "",
   );
 
-  const { isWideScreen, isMiddleScreen } = useResize();
+  const { isWideScreen, isMiddleScreen, isSubMiddleScreen } = useResize();
 
 
 
   //количество фильмов по мнопке "еще"?
   function handleMoreFilms() {
     isWideScreen ?
-      setAddMovies(addMovies + 3) :
+      setAddMovies(addMovies + 4) :
+      isSubMiddleScreen ?
+        setAddMovies(addMovies + 3) :
       isMiddleScreen ?
         setAddMovies(addMovies + 2) :
         setAddMovies(addMovies + 2);
   }
   //первоначальное количество фильмов при первой отрисовке
   function findShowedMovies() {
-
     const count = isWideScreen ?
+      16 :
+      isSubMiddleScreen ?
       12 :
       isMiddleScreen ?
         8 :
-        5;
+        5
    return count + addMovies;
   }
 
@@ -63,7 +67,6 @@ function Movies({
     if (movies.length > 0) {
       return movies.slice(0, showedMovies);
     } else {
-
       return [];
     }
   };
@@ -80,14 +83,14 @@ function Movies({
 
   function handleSearch(query, e) {
     e.preventDefault();
-
     if (query.length === 0) {
+      openConfirmPopup("Нужно ввести ключевое слово");
       return;
     }
-    handleSearchMovie(query, e)
+    handleSearchMovie(query, e);
     setQuery(query);
+    console.log(query)
     localStorage.setItem("moviesSearchQuery", query);
-
   }
 
 
@@ -112,7 +115,7 @@ function Movies({
         {isLoading ?
           (<Preloader />)
           :
-          movies.length > 0 ?
+          //movies.length > 0 ?
             (<><MoviesList
               isMoviePage={isMoviePage}
               movies={moviesForRender()}
@@ -126,15 +129,15 @@ function Movies({
                 handleMoreFilms={handleMoreFilms}
                 isRenderedMore={isRenderedMore}
               />
-            </>
-            ) : movies.length === 0 ? (
-              <p className="movies__notfound">{!isSearch ? "" : "Ничего не найдено"}</p>
-            ) : (
-              <p className="movies__notfound">
-                Во время запроса произошла ошибка. Возможно, проблема с соединением
-                или сервер недоступен. Подождите немного и попробуйте ещё раз
-              </p>
-            )
+            </>)
+           // ) : movies.length === 0 ? (
+           //   <p className="movies__notfound">{!isSearch ? "" : "Ничего не найдено"}</p>
+           // ) : (
+           //   <p className="movies__notfound">
+           //     Во время запроса произошла ошибка. Возможно, проблема с соединением
+           //     или сервер недоступен. Подождите немного и попробуйте ещё раз
+           //   </p>
+          //  )
 
         }
 

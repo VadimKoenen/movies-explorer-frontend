@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { useEffect } from 'react';
 import './Profile.css';
 import { Link } from 'react-router-dom';
 import { CurrentUserContext } from '../../contexts/CurrentUserContext';
@@ -15,22 +16,32 @@ function Profile({
   errorProfile,
 }) {
 
-  let currentUser = React.useContext(CurrentUserContext);
-
-  console.log(currentUser);
-
+  const currentUser = React.useContext(CurrentUserContext);
+  
   const {
     values,
     errors,
     handleChange,
-    isValid
+    isValid,
+    resetForm,
+    setValues
   } = useValidation();
 
   const [isSave, setIsSave] = useState(false)
 
+  
+
   function handleSave() {
     setIsSave(true);
   }
+
+
+  useEffect(() => {
+    setValues({name: currentUser.name, 
+      email: currentUser.email})
+    }, [isSave]);
+
+
 
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -38,6 +49,7 @@ function Profile({
     setIsSave(false);
   };
 
+  console.log(values);
 
   return (
     <>
@@ -69,7 +81,7 @@ function Profile({
                 maxLength="20"
                 onChange={handleChange}
                 pattern="[a-zA-Zа-яА-ЯёЁ\s\-]+"
-                value={values.name ?? currentUser.name}
+                value={isSave ? values.name : currentUser.name}
                 readOnly={!isSave}
               />
 
@@ -92,7 +104,7 @@ function Profile({
                 id="profile__profile-email-input`"
                 onChange={handleChange}
                 pattern="^[a-zA-Z0-9\-.]{1,}@[a-zA-Z0-9\-.]{1,}\.[a-zA-Z]{2,5}$"
-                value={values.email ?? currentUser.email}
+                value={isSave ? values.email : currentUser.email}
                 readOnly={!isSave}
               />
 

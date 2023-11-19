@@ -1,27 +1,25 @@
 import React from 'react';
-import PopupWithForm from './PopupWithForm';
+import './ConfirmPopup.css';
+
+function ConfirmPopup({ isConfirmPopupOpen, closeConfirmPopup, messagePopup, onOverlayClick }) {
 
 
-function ConfirmPopup({ card, isOpen, onClose, isLoading, onCardDelete }) {
-
-//удаление
-    function deleteCard(e) {
-        e.preventDefault();
-        onCardDelete(card);
-    };
-
-    return (
-        <PopupWithForm
-            name={"confirm"}
-            title={"Вы уверены?"}
-            isOpen={isOpen}
-            onClose={onClose}
-            buttonName={isLoading ? "Удаление..." : "Да"}
-            onSubmit={deleteCard}
-            card={card}
-        >
-        </PopupWithForm>
-    );
-};
+  return (
+    <section
+      className={`popup ${isConfirmPopupOpen ? 'popup_opened' : ''}`}
+      id="popup-info-tooltip"
+      onClick={onOverlayClick}
+    >
+      <div className="popup__container">
+        <button
+          type="button"
+          className="popup__close"
+          onClick={closeConfirmPopup}
+        />
+        <p className="popup__info">{messagePopup}</p>
+      </div>
+    </section>
+  );
+}
 
 export default ConfirmPopup;

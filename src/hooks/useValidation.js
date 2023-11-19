@@ -6,12 +6,14 @@ const useValidation = () => {
 
   const handleChange = (event) => {
     const name = event.target.name;
+    const email = event.target.email;
     const value = event.target.value;
     const target = event.target;
 
     setValues({
       ...values,
       [name]: value,
+      [email]: value
     });
 
     setErrors({
@@ -37,6 +39,8 @@ const useValidation = () => {
     handleChange,
     isValid,
     resetForm,
+    setValues,
+    setValid,
   };
 };
 

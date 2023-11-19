@@ -5,9 +5,7 @@ import Movie from '../Movie/Movie';
 function MoviesList({
     isMoviePage,
     movies,
-    isLoggedIn,
     handleSaveMovie,
-    requestMessage,
     handleDeleteMovie,
 }) {
     return (
@@ -20,7 +18,7 @@ function MoviesList({
                             key={index}
                             isMoviePage={isMoviePage}
                             movie={movie}
-                            handleSaveMovie={handleSaveMovie} //попадает из movies
+                            handleSaveMovie={handleSaveMovie}
                             handleDeleteMovie={handleDeleteMovie}
                         />
                     </li>

@@ -5,7 +5,7 @@ import { useLocation } from 'react-router-dom';
 import AuthForm from '../../utils/AuthForm';
 
 function SearchForm(
-  { props,    
+  {    
     handleChangeFilm,
     handleSubmitFilms,
     handleSearchMovie,
@@ -18,21 +18,14 @@ function SearchForm(
     isShortSavedMovies,
     setIsShortSavedMovies,
     isSearch,
-    setSearch
+    setSearch,
+    savedQuery
   }) {
 
   const { register, errors, handleSubmit, watch, setValue } = AuthForm();
   const location = useLocation();
 
-  useEffect(() => {
-    if (location.pathname === "/movies") {
-      setValue("search", localStorage.getItem("moviesSearchQuery") || ""); 
-    } else {
-      setValue("search", savedString || ""); 
-    }
-  }, []);
-
-
+  
   const onSubmit = (data, e) => {
     e.preventDefault();
     if (location.pathname === "/movies") {
@@ -46,14 +39,7 @@ function SearchForm(
   const savedString = watch("search", "");
   const query = watch("search", localStorage.getItem("moviesSearchQuery") || "");
 
-  useEffect(() => {
-    if (location.pathname === "/movies") {
-      localStorage.setItem("moviesSearchQuery", query || "");
-      setQuery(query);
-    } else {
-     setSavedQuery(savedString); 
-    }
-     }, [query, savedString]);
+  
 
 
   //короткометражки
@@ -68,13 +54,33 @@ function SearchForm(
   }
 
 
+  useEffect(() => {
+    if (location.pathname === "/movies") {
+      localStorage.setItem("moviesSearchQuery", query || "");
+      setQuery(query);
+    } else {
+     setSavedQuery(savedString); 
+    }
+     }, [query, savedString]);
+
+
+
+  useEffect(() => {
+    if (location.pathname === "/movies") {
+      setValue("search", localStorage.getItem("moviesSearchQuery") || ""); 
+    } else {
+      setValue("search", savedString || ""); 
+    }
+  }, []);
+
+
 
   return (
     <section className="search-section">
       <form
         className="search"
-        onSubmit={handleSubmit(onSubmit)}
-
+        onSubmit= {handleSubmit(onSubmit)}
+        noValidate
       >
         <img className="search__logo" alt="лупа" src={logo} />
         <div className="search__form">
@@ -87,8 +93,7 @@ function SearchForm(
               required
               {...register("search")}
             />
-            <button
-              onClick={(e) => setSearch(true)}
+            <button              
               className="form__button"
               type="submit"
             >
