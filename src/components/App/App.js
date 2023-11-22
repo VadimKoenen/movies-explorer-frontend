@@ -15,6 +15,7 @@ import Profile from '../Profile/Profile';
 import Movies from '../Movies/Movies';
 import SavedMovies from '../SavedMovies/SavedMovies';
 import ConfirmPopup from '../ConfirmPopup/ConfirmPopup.js';
+import { click } from '@testing-library/user-event/dist/click.js';
 
 
 
@@ -38,17 +39,25 @@ function App() {
   const [errorLogin, setErrorLogin] = useState("");
   const [errorRegister, setErrorRegister] = useState("");
 
-  const [moviesForShow, setMoviesForShow] = useState([]);
-  const [savedMovies, setSavedMovies] = useState(JSON.parse(localStorage.getItem("savedMovies")) || []);
+
+
   const [movies, setMovies] = useState(JSON.parse(localStorage.getItem("movies")) || []);
+  const [moviesForShow, setMoviesForShow] = useState([]);
+  const [basicMovies, setBasicMovies] = useState([]);
+  const [savedMovies, setSavedMovies] = useState(JSON.parse(localStorage.getItem("savedMovies")) || []);
+
+
+
+
   const [isShortMovies, setIsShortMovies] = useState(JSON.parse(localStorage.getItem("isShortMovies")) || false);
   const [savedFilteredMovies, setSavedFilteredMovies] = useState([]);
   const [isShortSavedMovies, setIsShortSavedMovies] = useState(JSON.parse(localStorage.getItem("isShortSavedMovies")) || false);
-  const [basicMovies, setBasicMovies] = useState([]);
   const [isConfirmPopupOpen, setConfirmPopupOpen] = useState(false);
   const [messagePopup, setMessagePopup] = useState('');
 
-  console.log(basicMovies, 'basicMovies');
+
+
+
   console.log(moviesForShow, 'moviesForShow');
   console.log(savedMovies, 'savedMovies');
   console.log(movies, 'movies')
@@ -152,6 +161,8 @@ function App() {
         localStorage.removeItem("savedFilteredMovies");
         localStorage.removeItem("basicMovies");
         localStorage.removeItem('loggedIn');
+        localStorage.removeItem("moviesSearchQuery");
+        setMovies([])
         localStorage.clear();
         navigate("/", { replace: true });
       })
@@ -207,6 +218,8 @@ function App() {
       })
   }
 
+
+  //очевидно, что нужно оставить
   // получение списка фильмов от Api
   function getBasicMovies() {
     return moviesApi
@@ -217,6 +230,8 @@ function App() {
         return cards
       })
   }
+
+
 
   //установка лайка каждому фильму от Api
   function setLikeStatus(movies) {
@@ -352,7 +367,30 @@ function App() {
   }, []);
 
 
+ //который потом определяет параметры удаления и иконку кнопки
+ useEffect(() => {
+  if (isLoggedIn) {
+    MainApi
+      .getInitialMovies()
+      .then((movies) => {
+        const deleteIconMovies = movies.map((movie) => {
+          return {
+            ...movie, type: "delete", key: movie._id
+            //...movie, type: "liked", key: movie._id
+          }
+        })
+        setSavedMovies(deleteIconMovies);
+        localStorage.setItem("savedMovies", JSON.stringify(deleteIconMovies))
+      })
+      .catch(console.error)
+  }
+}, [isLoggedIn, navigate])
+
+
+console.log(savedMovies)
   // проверка страниц
+
+
 
   //главная
   useEffect(() => {
@@ -379,54 +417,36 @@ function App() {
 
 
 
- //получение сохраненных фильмов в saved-films
- //получение списка фильмов от сервера с монго, потом всем присваивается тип, 
- //который потом определяет параметры удаления и иконку кнопки
- useEffect(() => {
-  if (isLoggedIn) {
-    MainApi
-      .getInitialMovies()
-      .then((movies) => {
-        const deleteIconMovies = movies.map((movie) => {
-          return {
-            ...movie, type: "delete", key: movie._id
-            //...movie, type: "liked", key: movie._id
-          }
-        })
-        setSavedMovies(deleteIconMovies);
-        localStorage.setItem("savedMovies", JSON.stringify(deleteIconMovies))
-      })
-      .catch(console.error)
-  }
-}, [isLoggedIn])
+  //получение сохраненных фильмов в saved-films
+  //получение списка фильмов от сервера с монго, потом всем присваивается тип, 
+ 
 
 
 
- //Список фильмов для отражения
- useEffect(() => {
-  if (path.pathname === "/movies") {
-   // localStorage.setItem("movies", JSON.stringify(movies));
-    if (movies.length > 0) {
-      setMoviesForShow(isShortMovies ? (
-        movies.filter((movie) => {
-          return (
-            movie.duration <= 40
-          )
-        })
-      ) : movies)
-    } else if (movies.length === 0) {
-      setMoviesForShow([]);
+  //Список фильмов для отражения
+
+  useEffect(() => {
+    if (path.pathname === "/movies") {
+      // localStorage.setItem("movies", JSON.stringify(movies));
+      if (movies.length > 0) {
+        setMoviesForShow(isShortMovies ? (
+          movies.filter((movie) => {
+            return (
+              movie.duration <= 40
+            )
+          })
+        ) : movies)
+      } else if (movies.length === 0) {
+        setMoviesForShow([]);
+      }
+
     }
-
-  }
-},
-  [
-    path,
-    savedMovies,
-    movies,
-    isShortMovies,
-    isLoggedIn,
-  ]);
+  },
+    [path, 
+      movies,
+      isShortMovies,
+     
+      ]);
 
 
 
@@ -452,11 +472,9 @@ function App() {
     savedFilteredMovies,
     savedMovies,
     movies,
-    isShortMovies,
-    isShortSavedMovies,
-    isLoggedIn,
+    isShortSavedMovies,    
+    moviesForShow
   ]);
-
 
 
 
@@ -497,7 +515,7 @@ function App() {
                       isMoviePage={isMoviePage}
                       isLoading={isLoading}
                       movies={moviesForShow}
-                      handleSaveMovie={handleSaveMovie}
+
                       handleSearchMovie={handleSearchMovie}
                       handleDeleteMovie={handleDeleteMovie}
                       isShortMovies={isShortMovies}
@@ -507,6 +525,8 @@ function App() {
                       isSearch={isSearch}
                       setSearch={setSearch}
                       openConfirmPopup={openConfirmPopup}
+                      setSavedFilteredMovies={setSavedFilteredMovies}
+                      setSavedMovies={setSavedMovies}
                     />
                   </>
                 )}
@@ -535,6 +555,8 @@ function App() {
                       isSearch={isSearch}
                       setSearch={setSearch}
                       openConfirmPopup={openConfirmPopup}
+                      savedFilteredMovies={savedFilteredMovies}
+                      isSavedMoviePage={isSavedMoviePage}
                     />
                   </>
                 )}

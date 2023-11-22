@@ -10,7 +10,8 @@ function Movie({
   isMoviePage,
   movie,
   handleSaveMovie,
-  handleDeleteMovie
+  handleDeleteMovie,
+  isSavedMoviePage
 }) {
 
 const { id, nameRU, duration, trailerLink, movieId } = movie;
@@ -41,12 +42,17 @@ let movieDuration = `${Math.floor(duration / 60)}ч ${duration % 60}м`;
           <h2 className="movie__header">{nameRU}</h2>
           <p className="movie__subtitle">{movieDuration}</p>
         </div>
-        <button
-          className={`movie__icon ${movie.type === "liked" ? "movie__icon_type_save_active" : movie.type === "unliked" ? "movie__icon_type_save" : "movie__icon_type_delete"}           
-          `}
-          onClick={(e) => saveOrDelete(e)}
+        
+          { isSavedMoviePage ? (
+            <button className="movie__icon movie__icon_type_delete"  onClick={(e) => saveOrDelete(e)}></button>
+        ) : (
+            <button className={`movie__icon ${movie.type === "liked" ? "movie__icon_type_save_active" : "movie__icon_type_save" }`
+          } onClick={(e) => saveOrDelete(e)}
+          ></button>
+        )
+        }
 
-        ></button>
+
       </div>
     </div>
   );

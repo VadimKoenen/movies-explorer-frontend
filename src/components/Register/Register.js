@@ -43,6 +43,8 @@ function Register({
             required
             id="name"
             placeholder="Введите имя"
+            minLength="2"
+            maxLength="20"
             value={values.name || ''}
             onChange={handleChange}
           />
@@ -59,6 +61,8 @@ function Register({
             id="email"
             value={values.email || ''}
             onChange={handleChange}
+            minLength="2"
+            maxLength="20"
             pattern="^[a-zA-Z0-9\-.]{1,}@[a-zA-Z0-9\-.]{1,}\.[a-zA-Z]{2,5}$"
           />
           <span className="register__error">
@@ -73,7 +77,7 @@ function Register({
             placeholder="Введите пароль"
             required
             minLength={2}
-            maxLength={30}
+            maxLength={20}
             value={values.password || ''}
             onChange={handleChange}
           />

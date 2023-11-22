@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import './SavedMovies.css';
 import Header from '../Header/Header';
 import Footer from '../Footer/Footer';
@@ -19,9 +19,18 @@ function SavedMovies({
     setIsShortSavedMovies,
     movies,
     isSearch,
-    setSearch,    
-    openConfirmPopup
+    setSearch,
+    openConfirmPopup,
+    isSavedMoviePage
 }) {
+
+
+    //новый стейт по замечаниям
+   // const [newFilms, setNewFilms] = useState([])
+
+    //console.log(newFilms)
+
+
 
     const [savedQuery, setSavedQuery] = useState("");
 
@@ -35,6 +44,10 @@ function SavedMovies({
         handleSearchMovie(query, e);
         setSavedQuery(query);
     }
+
+   // useEffect(() => {
+   //     setNewFilms(movies);
+  //  }, []);
 
     return (
         <>
@@ -62,6 +75,7 @@ function SavedMovies({
                         isLoggedIn={isLoggedIn}
                         handleDeleteMovie={handleDeleteMovie}
                         handleSearchMovie={handleSearchMovie}
+                        isSavedMoviePage={isSavedMoviePage}
                     />}
             </main>
             <Footer />

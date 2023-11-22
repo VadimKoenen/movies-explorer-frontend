@@ -50,6 +50,8 @@ function Login({
             value={values.email || ''}
             onChange={handleChange}
             disabled={isLoading}
+            minLength="2"
+            maxLength="20"
           />
           <span
             className="login__error"
@@ -64,8 +66,8 @@ function Login({
             placeholder="Введите пароль"
             id="password"
             required
-            minLength={2}
-            maxLength={30}
+            minLength="2"
+            maxLength="20"
             value={values.password || ''}
             onChange={handleChange}
             disabled={isLoading}

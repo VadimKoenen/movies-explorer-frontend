@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import { Route, Routes, Navigate, useNavigate, useLocation } from 'react-router-dom';
 import './Movies.css';
 import Header from '../Header/Header';
 import Footer from '../Footer/Footer';
@@ -7,6 +8,7 @@ import Preloader from '../Preloader/Preloader';
 import MoviesList from '../MoviesList/MoviesList';
 import { useResize } from '../../hooks/useResize';
 import More from '../More/More';
+import MainApi from '../../utils/MainApi';
 
 
 function Movies({
@@ -15,7 +17,6 @@ function Movies({
   isLoading,
   isMoviePage,
   movies,
-  handleSaveMovie,
   handleSearchMovie,
   isShortMovies,
   setIsShortMovies,
@@ -25,18 +26,31 @@ function Movies({
   setSearch,
   isSearch,
   openConfirmPopup,
+  setSavedFilteredMovies,
+  setSavedMovies
 }) {
 
   const [addMovies, setAddMovies] = useState(0);
   const [isRenderedMore, setIsRenderedMore] = useState(false);
+  const path = useLocation();
+  const navigate = useNavigate();
+  //новый стейт по замечаниям
+  const [newFilms, setNewFilms] = useState([])
+
+  console.log(newFilms)
+
 
   const [query, setQuery] = useState(
     localStorage.getItem("moviesSearchQuery") || "",
   );
+  console.log(query)
+
+  useEffect(() => {
+    setNewFilms(movies);
+  }, [movies, navigate]);
+
 
   const { isWideScreen, isMiddleScreen, isSubMiddleScreen } = useResize();
-
-
 
   //количество фильмов по мнопке "еще"?
   function handleMoreFilms() {
@@ -44,35 +58,55 @@ function Movies({
       setAddMovies(addMovies + 4) :
       isSubMiddleScreen ?
         setAddMovies(addMovies + 3) :
-      isMiddleScreen ?
-        setAddMovies(addMovies + 2) :
-        setAddMovies(addMovies + 2);
+        isMiddleScreen ?
+          setAddMovies(addMovies + 2) :
+          setAddMovies(addMovies + 2);
   }
   //первоначальное количество фильмов при первой отрисовке
   function findShowedMovies() {
     const count = isWideScreen ?
       16 :
       isSubMiddleScreen ?
-      12 :
-      isMiddleScreen ?
-        8 :
-        5
-   return count + addMovies;
+        12 :
+        isMiddleScreen ?
+          8 :
+          5
+    return count + addMovies;
   }
 
   const showedMovies = findShowedMovies();
 
+  // функции фильмов
+  function handleSaveMovie(movie) {
+    MainApi
+      .saveMovie(movie)
+      .then((newMovie) => {
+        setNewFilms((state) =>
+          state.map((elem) => {
+            return elem.id === newMovie.movieId
+              ? { ...elem, type: "liked", key: elem.id }
+              : elem
+          }));    
+           
+      })
+      .catch((err) => {
+        console.log(err);
+      })
+  }
+
+
   //определить количество карточек к показу
   function moviesForRender() {
-    if (movies.length > 0) {
-      return movies.slice(0, showedMovies);
+    if (newFilms.length > 0) {
+      return newFilms.slice(0, showedMovies);
     } else {
       return [];
     }
   };
 
+
   useEffect(() => {
-    const moviesToRender = movies.length - showedMovies;
+    const moviesToRender = newFilms.length - showedMovies;
     if (moviesToRender > 0) {
       setIsRenderedMore(true)
     } else {
@@ -80,7 +114,7 @@ function Movies({
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [
-    movies, 
+    newFilms,
     showedMovies]);
 
   function handleSearch(query, e) {
@@ -118,27 +152,27 @@ function Movies({
           (<Preloader />)
           :
           //movies.length > 0 ?
-            (<><MoviesList
-              isMoviePage={isMoviePage}
-              movies={moviesForRender()}
-              isLoggedIn={isLoggedIn}
-              handleSaveMovie={handleSaveMovie}
-              handleSearchMovie={handleSearchMovie}
-              handleDeleteMovie={handleDeleteMovie}
-            >
-            </MoviesList>
-              <More
-                handleMoreFilms={handleMoreFilms}
-                isRenderedMore={isRenderedMore}
-              />
-            </>)
-           // ) : movies.length === 0 ? (
-           //   <p className="movies__notfound">{!isSearch ? "" : "Ничего не найдено"}</p>
-           // ) : (
-           //   <p className="movies__notfound">
-           //     Во время запроса произошла ошибка. Возможно, проблема с соединением
-           //     или сервер недоступен. Подождите немного и попробуйте ещё раз
-           //   </p>
+          (<><MoviesList
+            isMoviePage={isMoviePage}
+            movies={moviesForRender()}
+            isLoggedIn={isLoggedIn}
+            handleSaveMovie={handleSaveMovie}
+            handleSearchMovie={handleSearchMovie}
+            handleDeleteMovie={handleDeleteMovie}
+          >
+          </MoviesList>
+            <More
+              handleMoreFilms={handleMoreFilms}
+              isRenderedMore={isRenderedMore}
+            />
+          </>)
+          // ) : movies.length === 0 ? (
+          //   <p className="movies__notfound">{!isSearch ? "" : "Ничего не найдено"}</p>
+          // ) : (
+          //   <p className="movies__notfound">
+          //     Во время запроса произошла ошибка. Возможно, проблема с соединением
+          //     или сервер недоступен. Подождите немного и попробуйте ещё раз
+          //   </p>
           //  )
 
         }
