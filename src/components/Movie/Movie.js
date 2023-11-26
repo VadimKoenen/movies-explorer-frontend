@@ -1,28 +1,48 @@
 import React from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useLocation, useNavigate, } from 'react-router-dom';
 import './Movie.css';
 import { useState, useEffect } from "react";
 import { MOVIES_URL } from "../../utils/constants";
-import {movieDuration} from '../../utils/constants'
-
 
 function Movie({
   isMoviePage,
-  movie,
-  handleSaveMovie,
-  handleDeleteMovie,
-  isSavedMoviePage
+  //новые
+  cardInfo,
+  onLike,
+  savedMovies,
+  onDelete,
 }) {
 
-const { id, nameRU, duration, trailerLink, movieId } = movie;
-let movieDuration = `${Math.floor(duration / 60)}ч ${duration % 60}м`;
+  const navigate = useNavigate();
+  const path = useLocation;
+
+  const [isLiked, setIsLiked] = useState(false);
+  const [savedCard, setSavedCard] = useState('');
+  console.log(savedCard);
 
 
-  function saveOrDelete(e) {
-    e.preventDefault();
-    movie.type === "unliked" ? handleSaveMovie(movie) : handleDeleteMovie(isMoviePage ? id : movieId);
-   }
+  const { nameRU, duration, trailerLink, movieId, id } = cardInfo;
+  let movieDuration = `${Math.floor(duration / 60)}ч ${duration % 60}м`;
 
+
+  useEffect(() => {
+    savedMovies.forEach((card) => {
+      if (card.movieId === cardInfo.id) {
+        setSavedCard(card);
+        setIsLiked(true);
+      }
+    })
+  }, [savedCard, savedMovies])
+
+
+  function handleLike() {
+    setIsLiked(!isLiked);
+    onLike(cardInfo, isLiked, savedCard);
+  }
+
+  function handleDelete() {
+    onDelete(cardInfo)
+  }
 
   return (
     <div className="movie">
@@ -32,7 +52,7 @@ let movieDuration = `${Math.floor(duration / 60)}ч ${duration % 60}м`;
         target="_blank"
       >
         <img
-          src={`${isMoviePage ? (MOVIES_URL + movie.image.url) : (movie.image)}`}
+          src={`${isMoviePage ? (MOVIES_URL + cardInfo.image.url) : (cardInfo.image)}`}
           className="movie__image"
           alt={nameRU}
         />
@@ -42,14 +62,15 @@ let movieDuration = `${Math.floor(duration / 60)}ч ${duration % 60}м`;
           <h2 className="movie__header">{nameRU}</h2>
           <p className="movie__subtitle">{movieDuration}</p>
         </div>
-        
-          { isSavedMoviePage ? (
-            <button className="movie__icon movie__icon_type_delete"  onClick={(e) => saveOrDelete(e)}></button>
-        ) : (
-            <button className={`movie__icon ${movie.type === "liked" ? "movie__icon_type_save_active" : "movie__icon_type_save" }`
-          } onClick={(e) => saveOrDelete(e)}
+
+        {isMoviePage ? (
+          <button className={`movie__icon  ${isLiked ? "movie__icon_type_save_active" : "movie__icon_type_save"}`
+          } onClick={handleLike}
           ></button>
-        )
+        ) :
+          (
+            <button className="movie__icon movie__icon_type_delete" onClick={handleDelete}></button>
+          )
         }
 
 

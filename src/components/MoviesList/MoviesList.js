@@ -4,29 +4,43 @@ import Movie from '../Movie/Movie';
 
 function MoviesList({
     isMoviePage,
-    movies,
     handleSaveMovie,
     handleDeleteMovie,
-    isSavedMoviePage
-}) {
+    isSavedMoviePage,
+
+    //новые
+    onLike,
+    savedMovies,
+    searchMovies,
+    onDelete,
+    movies,
+    key,
+})
+{
+
+
     return (
         <section className="movie-list">
 
             <ul className="movie-list__container">
-                {movies.length > 0 && movies.map((movie) => (
-                    <li key={movie.id}>
-                        <Movie                            
-                            isMoviePage={isMoviePage}
-                            movie={movie}
+                {movies.length > 0 && movies.map((cardInfo) => (
+                    <li  key={ isMoviePage ? cardInfo.id : cardInfo.movieId }>
+                        <Movie
+                            isMoviePage={isMoviePage}                          
                             handleSaveMovie={handleSaveMovie}
                             handleDeleteMovie={handleDeleteMovie}
                             isSavedMoviePage={isSavedMoviePage}
+                            //новые
+                            onLike={onLike}                            
+                            savedMovies={savedMovies}
+                            cardInfo = {cardInfo}
+                            onDelete={onDelete}
                         />
                     </li>
                 ))}
             </ul>
 
-
+          
 
         </section>
     );

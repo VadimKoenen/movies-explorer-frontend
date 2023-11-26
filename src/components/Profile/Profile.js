@@ -134,7 +134,7 @@ function Profile({
               <button
                 type="submit"
                 aria-label="save"
-                disabled={!isValid || currentUser.name === values.name || currentUser.email === values.email}
+                disabled={!isValid || (currentUser.name === values.name && currentUser.email === values.email)}
                 className={isSave ? "profile__save" : "profile__disabled"}
               >
                 Сохранить

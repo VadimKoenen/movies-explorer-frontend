@@ -9,85 +9,82 @@ import MoviesList from '../MoviesList/MoviesList';
 import { useResize } from '../../hooks/useResize';
 import More from '../More/More';
 import MainApi from '../../utils/MainApi';
+import * as moviesApi from '../../utils/MoviesApi'
 
 
 function Movies({
   isMainPage,
   isLoggedIn,
   isLoading,
-  isMoviePage,
-  movies,
-  handleSearchMovie,
-  isShortMovies,
-  setIsShortMovies,
-  handleDeleteMovie,
-  isShortSavedMovies,
-  setIsShortSavedMovies,
+  setIsLoading,
+  isMoviePage,  
   setSearch,
   isSearch,
-  openConfirmPopup,
-  setSavedFilteredMovies,
-  setSavedMovies
+  openConfirmPopup,  
+  //новые
+   isSavedMoviePage,
+  userMovies,
 }) {
 
-  const [addMovies, setAddMovies] = useState(0);
-  const [isRenderedMore, setIsRenderedMore] = useState(false);
-  const path = useLocation();
+
+  //новое
+  const [searchMovies, setSearchMovies] = useState([]);
+  const [searchText, setSearchText] = useState('');
+  const [inputShortsMovieValue, setInputShortsMovieValue] = useState('');
+  
+  const [savedMovies, setSavedMovies] = useState([])
+  const [filteredSavedMovies, setFilteredSavedMovies] = useState(savedMovies);
+  const path = useLocation()
   const navigate = useNavigate();
-  //новый стейт по замечаниям
-  const [newFilms, setNewFilms] = useState([])
-
-  console.log(newFilms)
-
-
-  const [query, setQuery] = useState(
-    localStorage.getItem("moviesSearchQuery") || "",
-  );
-  console.log(query)
 
   useEffect(() => {
-    setNewFilms(movies);
-  }, [movies, navigate]);
+    setSavedMovies(userMovies);
+  }, [userMovies, navigate]);
 
 
-  const { isWideScreen, isMiddleScreen, isSubMiddleScreen } = useResize();
+  useEffect(() => {
+    setFilteredSavedMovies(savedMovies);
+    const historyRequest = JSON.parse(localStorage.getItem('search'));
+    if (historyRequest && path.pathname === '/movies') {
+      setSearchMovies(historyRequest['search-result']);
+      setSearchText(historyRequest['search-text']);
+      setInputShortsMovieValue(historyRequest['search-short-input']);
+    } else {
+      setSearchMovies([]);
+      setSearchText('');
+      setInputShortsMovieValue(false);
+    }
+  }, [path])
 
-  //количество фильмов по мнопке "еще"?
-  function handleMoreFilms() {
-    isWideScreen ?
-      setAddMovies(addMovies + 4) :
-      isSubMiddleScreen ?
-        setAddMovies(addMovies + 3) :
-        isMiddleScreen ?
-          setAddMovies(addMovies + 2) :
-          setAddMovies(addMovies + 2);
-  }
-  //первоначальное количество фильмов при первой отрисовке
-  function findShowedMovies() {
-    const count = isWideScreen ?
-      16 :
-      isSubMiddleScreen ?
-        12 :
-        isMiddleScreen ?
-          8 :
-          5
-    return count + addMovies;
-  }
 
-  const showedMovies = findShowedMovies();
 
-  // функции фильмов
-  function handleSaveMovie(movie) {
+  function handleGetSavedMovies() {
     MainApi
-      .saveMovie(movie)
-      .then((newMovie) => {
-        setNewFilms((state) =>
-          state.map((elem) => {
-            return elem.id === newMovie.movieId
-              ? { ...elem, type: "liked", key: elem.id }
-              : elem
-          }));    
-           
+      .getInitialMovies()
+      .then((movies) => setSavedMovies(movies))
+      .catch((err) => {
+        console.log(err);
+      })
+  }
+
+
+
+  function handleLike(cardInfo, isLiked, savedCard) {
+    if (isLiked) {
+      handleDelete(savedCard);
+    } else {
+      MainApi.saveMovie(cardInfo)
+      .then((res) => {
+           handleGetSavedMovies()
+        //    console.log({res})
+        })
+    }
+
+  }
+
+  function handleDelete(cardInfo) {
+    MainApi.deleteMovie(cardInfo._id)
+      .then((res) => {      
       })
       .catch((err) => {
         console.log(err);
@@ -95,39 +92,127 @@ function Movies({
   }
 
 
-  //определить количество карточек к показу
-  function moviesForRender() {
-    if (newFilms.length > 0) {
-      return newFilms.slice(0, showedMovies);
+  function handleSearchMovies(keywords, searchShortsMovies) {
+    setIsLoading(true);
+    console.log('setIsLoading(true)');
+    if (path === '/saved-movies') {
+      setFilteredSavedMovies(
+        filterMovies(savedMovies, keywords, searchShortsMovies)
+      )
+      setIsLoading(false);
+      console.log('setIsLoading(false)');
     } else {
-      return [];
+      if (JSON.parse(localStorage.getItem('movies'))) {
+        const movies = JSON.parse(localStorage.getItem('movies'));
+        const filteredMovies = filterMovies(movies, keywords, searchShortsMovies);
+        handleFilter(filteredMovies, keywords, searchShortsMovies);
+        setIsLoading(false);
+      } else {
+        setIsLoading(true);
+        console.log('setIsLoading(true)');
+        moviesApi.getMovies()
+          .then((res) => {
+            localStorage.setItem('movies', JSON.stringify(res));
+            const filteredMovies = filterMovies(res, keywords, searchShortsMovies);
+            handleFilter(filteredMovies, keywords, searchShortsMovies);
+            setIsLoading(false);
+            console.log('setIsLoading(false)');
+          })
+          .catch((err) => {
+            console.log(err);
+            setSearchMovies([])
+            openConfirmPopup("Во время запроса произошла ошибка. Возможно, проблема с соединением или сервер недоступен. Подождите немного и попробуйте ещё раз");
+          })
+          .finally(() => {
+            setIsLoading(false);
+            console.log('setIsLoading(false)');
+          })
+      }
     }
-  };
-
-
-  useEffect(() => {
-    const moviesToRender = newFilms.length - showedMovies;
-    if (moviesToRender > 0) {
-      setIsRenderedMore(true)
-    } else {
-      setIsRenderedMore(false);
-    }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [
-    newFilms,
-    showedMovies]);
-
-  function handleSearch(query, e) {
-    e.preventDefault();
-    if (query.length === 0) {
-      openConfirmPopup("Нужно ввести ключевое слово");
-      return;
-    }
-    handleSearchMovie(query, e);
-    setQuery(query);
-    console.log(query)
-    localStorage.setItem("moviesSearchQuery", query);
   }
+
+
+  function handleFilter(movies, keywords, checkbox) {
+    if (movies.length === 0) {
+      setSearchMovies([]);
+      openConfirmPopup('Ничего не найдено');
+      setSearchText('');
+    } else {
+      setSearchMovies(filterMovies(movies, keywords, checkbox));
+      localStorage.setItem('search', JSON.stringify({
+        'search-text': keywords,
+        'search-short-input': checkbox,
+        'search-result': filterMovies(movies, keywords, checkbox)
+      }))
+    }
+  }
+
+  function filterMovies(moviesList, keywords, isShortMovies) {
+    const filteredArray = moviesList.filter((item) => {
+      if (isShortMovies) {
+        return item.duration <= 40 &&
+          (item['nameRU'].toLowerCase().includes(keywords.toLowerCase()) ||
+            item['nameEN'].toLowerCase().includes(keywords.toLowerCase()))
+      } else {
+        return item['nameRU'].toLowerCase().includes(keywords.toLowerCase()) ||
+          item['nameEN'].toLowerCase().includes(keywords.toLowerCase())
+      }
+    })
+
+    return filteredArray;
+  }
+
+
+
+  const [addMovies, setAddMovies] = useState(0);
+ const [isRenderedMore, setIsRenderedMore] = useState(false);
+const { isWideScreen, isMiddleScreen, isSubMiddleScreen } = useResize();
+  
+    //количество фильмов по мнопке "еще"?
+    function handleMoreFilms() {
+      isWideScreen ?
+        setAddMovies(addMovies + 4) :
+        isSubMiddleScreen ?
+          setAddMovies(addMovies + 3) :
+          isMiddleScreen ?
+            setAddMovies(addMovies + 2) :
+            setAddMovies(addMovies + 2);
+    }
+    //первоначальное количество фильмов при первой отрисовке
+    function findShowedMovies() {
+      const count = isWideScreen ?
+        16 :
+        isSubMiddleScreen ?
+          12 :
+          isMiddleScreen ?
+            8 :
+            5
+      return count + addMovies;
+    }
+  
+    const showedMovies = findShowedMovies();
+  
+
+//определить количество карточек к показу
+    function moviesForRender() {
+      if (searchMovies.length > 0) {
+        return searchMovies.slice(0, showedMovies);
+      } else {
+        return [];
+      }
+    };
+
+ useEffect(() => {
+      const moviesToRender = searchMovies.length - showedMovies;
+      if (moviesToRender > 0) {
+        setIsRenderedMore(true)
+      } else {
+        setIsRenderedMore(false);
+      }
+      // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, [
+      searchMovies,
+      showedMovies]);
 
 
   return (
@@ -138,15 +223,14 @@ function Movies({
       </Header>
       <main className="movies">
         <SearchForm
-          handleSearchMovie={handleSearchMovie}
-          setIsShortMovies={setIsShortMovies}
-          isShortMovies={isShortMovies}
-          onSearch={handleSearch}
-          setQuery={setQuery}
-          isShortSavedMovies={isShortSavedMovies}
-          setIsShortSavedMovies={setIsShortSavedMovies}
           isSearch={isSearch}
           setSearch={setSearch}
+          openConfirmPopup={openConfirmPopup}
+          //новые
+          onSubmit={handleSearchMovies}
+          searchText={searchText}
+          inputShortsMovieValue={inputShortsMovieValue}
+          setInputShortsMovieValue={setInputShortsMovieValue}
         />
         {isLoading ?
           (<Preloader />)
@@ -154,27 +238,23 @@ function Movies({
           //movies.length > 0 ?
           (<><MoviesList
             isMoviePage={isMoviePage}
+            isSavedMoviePage={isSavedMoviePage}
+           isLoggedIn={isLoggedIn}
+            
+            // новые
+            savedMovies={savedMovies}
+            searchMovies={searchMovies}
+            onLike={handleLike}
             movies={moviesForRender()}
-            isLoggedIn={isLoggedIn}
-            handleSaveMovie={handleSaveMovie}
-            handleSearchMovie={handleSearchMovie}
-            handleDeleteMovie={handleDeleteMovie}
+            
+            
           >
           </MoviesList>
-            <More
+          <More
               handleMoreFilms={handleMoreFilms}
               isRenderedMore={isRenderedMore}
             />
-          </>)
-          // ) : movies.length === 0 ? (
-          //   <p className="movies__notfound">{!isSearch ? "" : "Ничего не найдено"}</p>
-          // ) : (
-          //   <p className="movies__notfound">
-          //     Во время запроса произошла ошибка. Возможно, проблема с соединением
-          //     или сервер недоступен. Подождите немного и попробуйте ещё раз
-          //   </p>
-          //  )
-
+          </>)          
         }
 
 

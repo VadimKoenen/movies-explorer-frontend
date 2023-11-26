@@ -15,52 +15,33 @@ import Profile from '../Profile/Profile';
 import Movies from '../Movies/Movies';
 import SavedMovies from '../SavedMovies/SavedMovies';
 import ConfirmPopup from '../ConfirmPopup/ConfirmPopup.js';
-import { click } from '@testing-library/user-event/dist/click.js';
+
 
 
 
 function App() {
-  //const [isLoggedIn, setIsLoggedIn] = useState(false);
-  const [isLoggedIn, setIsLoggedIn] = useState(JSON.parse(localStorage.getItem('loggedIn') || false));
-
+   //навигация
+  const navigate = useNavigate();
   const path = useLocation();
+  const [isLoggedIn, setIsLoggedIn] = useState(JSON.parse(localStorage.getItem('loggedIn') || false));
+  //страницы
   const [isMainPage, setIsMainPage] = useState(false);
   const [isMoviePage, setIsMoviePage] = useState(false);
   const [isSavedMoviePage, setIsSavedMoviePage] = useState(false);
-  const [isSearch, setSearch] = useState(false);
-  // функционал
   const [currentUser, setCurrentUser] = useState({});
-
-  const [tokenChecked, setTokenChecked] = useState(false);
-  const navigate = useNavigate();
+  const [isSearch, setSearch] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
+  const [tokenChecked, setTokenChecked] = useState(false);
 
+
+  //ошибки
   const [errorProfile, setErrorProfile] = useState("");
   const [errorLogin, setErrorLogin] = useState("");
   const [errorRegister, setErrorRegister] = useState("");
-
-
-
-  const [movies, setMovies] = useState(JSON.parse(localStorage.getItem("movies")) || []);
-  const [moviesForShow, setMoviesForShow] = useState([]);
-  const [basicMovies, setBasicMovies] = useState([]);
-  const [savedMovies, setSavedMovies] = useState(JSON.parse(localStorage.getItem("savedMovies")) || []);
-
-
-
-
-  const [isShortMovies, setIsShortMovies] = useState(JSON.parse(localStorage.getItem("isShortMovies")) || false);
-  const [savedFilteredMovies, setSavedFilteredMovies] = useState([]);
-  const [isShortSavedMovies, setIsShortSavedMovies] = useState(JSON.parse(localStorage.getItem("isShortSavedMovies")) || false);
-  const [isConfirmPopupOpen, setConfirmPopupOpen] = useState(false);
   const [messagePopup, setMessagePopup] = useState('');
+  const [isConfirmPopupOpen, setConfirmPopupOpen] = useState(false);
 
-
-
-
-  console.log(moviesForShow, 'moviesForShow');
-  console.log(savedMovies, 'savedMovies');
-  console.log(movies, 'movies')
+  const [userMovies, setUserMovies] = useState([]);
 
   // функции
   function handleRegister({ name, email, password }) {
@@ -162,7 +143,7 @@ function App() {
         localStorage.removeItem("basicMovies");
         localStorage.removeItem('loggedIn');
         localStorage.removeItem("moviesSearchQuery");
-        setMovies([])
+        //setMovies([])
         localStorage.clear();
         navigate("/", { replace: true });
       })
@@ -173,148 +154,27 @@ function App() {
       });
   };
 
+  //функции фильмов
 
-
-  // функции фильмов
-  function handleSaveMovie(movie) {
-    MainApi
-      .saveMovie(movie)
-      .then((newMovie) => {
-        setMovies((state) => state.map((elem) => {
-          return elem.id === newMovie.movieId ? { ...elem, type: "liked", key: elem.id } : elem
-        }));
-        setSavedFilteredMovies((state) => state.map((elem) => elem.id === newMovie.movieId ? { ...elem, type: "liked", key: elem.id } : elem));
-        newMovie.type = "delete"
-        setSavedMovies((state) => [...state, newMovie])
-        localStorage.setItem("savedMovies", JSON.stringify(savedMovies));
-      })
-      .catch((err) => {
-        console.log(err);
-      })
-  }
-
-  //удаление фильма
-  function handleDeleteMovie(id) {
-    const deleteMovie = savedMovies.find((savedMovie) => savedMovie.movieId === id)
-    MainApi
-      .deleteMovie(deleteMovie._id)
-      .then(() => {
-        setMovies((state) => state.map((elem) => elem.id === id ? { ...elem, type: "unliked", key: elem.id } : elem))
-        setSavedMovies((state) => state.filter((c) => c._id !== deleteMovie._id))
-        setSavedFilteredMovies((state) => {
-          console.log(state, 'state')
-          return state.map((elem) => {
-            console.log(elem, 'elem', id, 'id')
-            return elem.movieId === id ?
-              { ...elem, type: "unliked", key: elem.id } :
-              elem
-          }
-          )
-        })
-        localStorage.setItem("savedMovies", JSON.stringify(savedMovies));
-      })
-      .catch((err) => {
-        console.log(err);
-      })
-  }
-
-
-  //очевидно, что нужно оставить
   // получение списка фильмов от Api
   function getBasicMovies() {
     return moviesApi
       .getMovies()
       .then((cards) => {
-        setBasicMovies(cards)
-        localStorage.setItem("basicMovies", JSON.stringify({ cards }))
+       // setSavedMovies(cards)
         return cards
+          .catch((err) => {
+            console.log(err);
+          })
       })
-  }
-
-
-
-  //установка лайка каждому фильму от Api
-  function setLikeStatus(movies) {
-    return movies.map((movie) => {
-      const savedMovieLike = savedMovies.find((savedMovie) => savedMovie.movieId === movie.id)
-      if (savedMovieLike) {
-        return {
-          ...movie, type: "liked", key: movie.id
-        }
-      }
-      return { ...movie, type: "unliked", key: movie.id }
-    })
-  }
-
-
-  // поиск
-  function searchFilm(movies, string) {
-    return movies.filter((movie) => {
-      return (
-        movie.nameRU.toLowerCase().includes(string.toLowerCase())
-        || movie.nameEN.toLowerCase().includes(string.toLowerCase())
-      )
-    })
-  }
-
-  // поиск на странице с сохраненными фильмами
-  function handleSearchSavedMovie(string, e) {
-    e.preventDefault();
-    const films = searchFilm(savedMovies, string);
-    if (films.length === 0) {
-      setSavedFilteredMovies([]);
-      openConfirmPopup("Ничего не найдено");
-      console.log('ошибка поиск по фильмам (f handleSearchSavedMovie)')
-    } else {
-      setSavedFilteredMovies(films);
-      console.log('поиск по фильмам (f handleSearchSavedMovie)');
-    }
 
   }
 
-  function searchMovies(movies, string) {
-    const setLikeStatusMovies = setLikeStatus(movies);
-    const films = searchFilm(setLikeStatusMovies, string);
-    if (films.length === 0) {
-      setMovies([]);
-      localStorage.setItem("movies", JSON.stringify([]));
-      openConfirmPopup("Ничего не найдено");
-      console.log('поиск по фильмам (f searchMovies)')
-    } else {
-      setMovies(films);
-      localStorage.setItem("movies", JSON.stringify(films));
-    }
-  }
-
-  function handleSearchMovie(string, e) {
-    e.preventDefault();
-    if (basicMovies.length === 0) {
-      setIsLoading(true);
-      getBasicMovies()
-        .then((basicMovies) => {
-          searchMovies(basicMovies, string)
-          console.log('поиск по фильмам (f handleSearchMovie)')
-        })
-        .catch((err) => {
-          console.log(err)
-        })
-        .finally(() => {
-          setIsLoading(false);
-          setSearch(true);
-        })
-    }
-    else {
-      searchMovies(basicMovies, string)
-      console.log('поиск по фильмам (f handleSearchMovie)')
-    }
-  };
-
-
+  // функции попапа
   function openConfirmPopup(string) {
     setMessagePopup(string);
     setConfirmPopupOpen(true)
   }
-
 
   function closeConfirmPopup() {
     setConfirmPopupOpen(false);
@@ -325,9 +185,6 @@ function App() {
       closeConfirmPopup();
     }
   };
-
-
-  //useEffect
 
   // авторизован ли пользователь
   useEffect(() => {
@@ -367,31 +224,17 @@ function App() {
   }, []);
 
 
- //который потом определяет параметры удаления и иконку кнопки
- useEffect(() => {
-  if (isLoggedIn) {
+  //который потом определяет параметры удаления и иконку кнопки
+  useEffect(() => {
     MainApi
       .getInitialMovies()
-      .then((movies) => {
-        const deleteIconMovies = movies.map((movie) => {
-          return {
-            ...movie, type: "delete", key: movie._id
-            //...movie, type: "liked", key: movie._id
-          }
-        })
-        setSavedMovies(deleteIconMovies);
-        localStorage.setItem("savedMovies", JSON.stringify(deleteIconMovies))
+      .then((movies) => setUserMovies(movies))
+      .catch((err) => {
+        console.log(err);
       })
-      .catch(console.error)
-  }
-}, [isLoggedIn, navigate])
+  }, [navigate])
 
-
-console.log(savedMovies)
   // проверка страниц
-
-
-
   //главная
   useEffect(() => {
     path.pathname === "/" ?
@@ -413,80 +256,6 @@ console.log(savedMovies)
       setIsSavedMoviePage(false);
 
   }, [path]);
-
-
-
-
-  //получение сохраненных фильмов в saved-films
-  //получение списка фильмов от сервера с монго, потом всем присваивается тип, 
- 
-
-
-
-  //Список фильмов для отражения
-
-  useEffect(() => {
-    if (path.pathname === "/movies") {
-      // localStorage.setItem("movies", JSON.stringify(movies));
-      if (movies.length > 0) {
-        setMoviesForShow(isShortMovies ? (
-          movies.filter((movie) => {
-            return (
-              movie.duration <= 40
-            )
-          })
-        ) : movies)
-      } else if (movies.length === 0) {
-        setMoviesForShow([]);
-      }
-
-    }
-  },
-    [path, 
-      movies,
-      isShortMovies,
-     
-      ]);
-
-
-
-  // отображение сохраненных фильмов   
-  useEffect(() => {
-    if (path.pathname === "/saved-movies") {
-      const films = savedFilteredMovies.length > 0 ? savedFilteredMovies : savedMovies
-      if (films.length > 0) {
-        setMoviesForShow(isShortSavedMovies ? (
-          films.filter((film) => {
-            return (
-              film.duration <= 40
-            )
-          })
-        ) : films)
-
-      } else if (films.length === 0) {
-        setMoviesForShow([]);
-      }
-    }
-  }, [
-    path,
-    savedFilteredMovies,
-    savedMovies,
-    movies,
-    isShortSavedMovies,    
-    moviesForShow
-  ]);
-
-
-
-  //обнуление поиска сохраненных фильмов
-  useEffect(() => {
-    if (path.pathname !== "/saved-movies") {
-      setSavedFilteredMovies([]);
-    }
-  },
-    [path]
-  );
-
 
 
   return (
@@ -514,19 +283,11 @@ console.log(savedMovies)
                       isMainPage={isMainPage}
                       isMoviePage={isMoviePage}
                       isLoading={isLoading}
-                      movies={moviesForShow}
-
-                      handleSearchMovie={handleSearchMovie}
-                      handleDeleteMovie={handleDeleteMovie}
-                      isShortMovies={isShortMovies}
-                      setIsShortMovies={setIsShortMovies}
-                      isShortSavedMovies={isShortSavedMovies}
-                      setIsShortSavedMovies={setIsShortSavedMovies}
+                      setIsLoading={setIsLoading}                     
                       isSearch={isSearch}
                       setSearch={setSearch}
                       openConfirmPopup={openConfirmPopup}
-                      setSavedFilteredMovies={setSavedFilteredMovies}
-                      setSavedMovies={setSavedMovies}
+                      userMovies={userMovies}                 
                     />
                   </>
                 )}
@@ -544,19 +305,13 @@ console.log(savedMovies)
                       isLoggedIn={isLoggedIn}
                       isLoading={isLoading}
                       isMainPage={isMainPage}
-                      isMoviePage={isMoviePage}
-                      handleSearchMovie={handleSearchSavedMovie}
-                      handleDeleteMovie={handleDeleteMovie}
-                      isShortMovies={isShortSavedMovies}
-                      setIsShortMovies={setIsShortSavedMovies}
-                      isShortSavedMovies={isShortSavedMovies}
-                      setIsShortSavedMovies={setIsShortSavedMovies}
-                      movies={moviesForShow}
+                      isMoviePage={isMoviePage}                     
                       isSearch={isSearch}
                       setSearch={setSearch}
                       openConfirmPopup={openConfirmPopup}
-                      savedFilteredMovies={savedFilteredMovies}
+                      userMovies={userMovies}
                       isSavedMoviePage={isSavedMoviePage}
+                      setIsLoading={setIsLoading}
                     />
                   </>
                 )}

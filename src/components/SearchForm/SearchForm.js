@@ -1,101 +1,88 @@
 import './SearchForm.css';
 import logo from '../../images/search-icon.svg';
 import React, { useEffect, useState } from 'react';
-import { useLocation } from 'react-router-dom';
-import AuthForm from '../../utils/AuthForm';
 
 function SearchForm(
-  {    
-    handleChangeFilm,
-    handleSubmitFilms,
-    handleSearchMovie,
-    setIsShortMovies,
-    isShortMovies,
-    onSearch,
-    setQuery,
-    setSavedQuery,
-    onSavedSearch,
-    isShortSavedMovies,
-    setIsShortSavedMovies,
-    isSearch,
-    setSearch,
-    savedQuery
+  {   
+    openConfirmPopup,
+    //новые
+    onSubmit,
+    searchText,
+    inputShortsMovieValue,   
   }) {
-
-  const { register, errors, handleSubmit, watch, setValue } = AuthForm();
-  const location = useLocation();
-
   
-  const onSubmit = (data, e) => {
-    e.preventDefault();
-    if (location.pathname === "/movies") {
-      onSearch(data.search, e);
-    } else {
-      onSavedSearch(data.search, e);
-    }
-    setSearch(true);
-  };
+  const [movievalue, setmovieValue] = useState(searchText);
+  const [searchShortsMovies, setSearchShortsMovies] = useState(false);
 
-  const savedString = watch("search", "");
-  const query = watch("search", localStorage.getItem("moviesSearchQuery") || "");
+  const searchRef = React.useRef();
 
-  
+  useEffect(() => {
+    setmovieValue(searchText)
+  }, [searchText])
 
 
-  //короткометражки
-  function handleChange(e) {
-    if (location.pathname === "/movies") {
-      localStorage.setItem("isShortMovies", JSON.stringify(!isShortMovies));
-      return setIsShortMovies(!isShortMovies);
-    } else {
-      localStorage.setItem("isShortSavedMovies", JSON.stringify(!isShortSavedMovies));
-      return setIsShortSavedMovies(!isShortSavedMovies);
+  const handleMovieChange = (evt) => {
+    evt.preventDefault();
+    setmovieValue(evt.target.value)
+  }
+
+  const handleSubmit = (evt) => {
+    evt.preventDefault();
+    if (searchRef.current.value) {
+      onSubmit(movievalue, searchShortsMovies)
+      console.log('нажатие на кнопку поиска')
+      console.log(movievalue)
+      console.log(searchShortsMovies)
+    } else {      
+      openConfirmPopup('Нужно ввести ключевое слово');
+      setmovieValue('');        
     }
   }
 
+  const handleShortsInput = (value) => {
+    setSearchShortsMovies(value)
+  }
+
+
+  const [inputShortsMovieValue2, setInputShortsMovieValue2] = useState(inputShortsMovieValue);
 
   useEffect(() => {
-    if (location.pathname === "/movies") {
-      localStorage.setItem("moviesSearchQuery", query || "");
-      setQuery(query);
-    } else {
-     setSavedQuery(savedString); 
-    }
-     }, [query, savedString]);
-
+    setInputShortsMovieValue2(inputShortsMovieValue)
+  }, [inputShortsMovieValue])
 
 
   useEffect(() => {
-    if (location.pathname === "/movies") {
-      setValue("search", localStorage.getItem("moviesSearchQuery") || ""); 
-    } else {
-      setValue("search", savedString || ""); 
-    }
-  }, []);
+    handleShortsInput(inputShortsMovieValue2);
+  }, [inputShortsMovieValue2])
 
-
-
+  const handleShortsMovieChange2 = (evt) => {
+    setInputShortsMovieValue2(evt.target.checked);
+  }
 
 
   return (
     <section className="search-section">
       <form
         className="search"
-        onSubmit= {handleSubmit(onSubmit)}
+        onSubmit={handleSubmit}
         noValidate
       >
         <img className="search__logo" alt="лупа" src={logo} />
         <div className="search__form">
           <div className="form_films">
             <input
-              onChange={handleChangeFilm}
               placeholder="Фильм"
               type="text"
               className="input"
               required
-              {...register("search")}
+              // {...register("search")}
+
+              //новые
+              ref={searchRef}
+              onChange={handleMovieChange}
+              value={movievalue}
             />
-            <button              
+            <button
               className="form__button"
               type="submit"
             >
@@ -108,8 +95,8 @@ function SearchForm(
             className="search__button"
             type="checkbox"
             id='shortfilm'
-            onChange={(e) => handleChange(e)}
-            checked={isShortMovies}
+            onChange={handleShortsMovieChange2}
+            checked={inputShortsMovieValue2}
           >
           </input>
           <label htmlFor="shortfilm" className="search__korot">Короткометражки</label>
