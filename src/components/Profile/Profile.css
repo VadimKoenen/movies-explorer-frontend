@@ -1,0 +1,281 @@
+.App {
+  background-color: #FAFAFA;
+  height: 100vh;
+  box-sizing: border-box;
+  display: flex;
+  flex-direction: column;
+
+  box-sizing: content-box;
+}
+
+.profile {
+  background-color: #FAFAFA;
+
+}
+
+.profile__content {
+  background-color: #FAFAFA;
+  height: 100%;
+  max-width: 410px;
+  margin: 0 auto 0 auto;
+  display: flex;
+  flex-direction: column;
+}
+
+.profile__form {
+  display: flex;
+  flex-direction: column;
+  justify-content: stretch;
+  height: 522px;
+}
+
+
+.profile__container {
+  margin: 0 auto;
+  justify-content: space-between;
+  display: flex;
+  width: 410px;
+  margin-top: 120px;
+  border-bottom: 1px solid #E8E8E8;
+}
+
+.profile__container-email {
+  margin: 17px auto;
+  border: none;
+}
+
+.profile__buttons {
+  flex-grow: 1;
+  margin-top: 185px;
+  ;
+  display: flex;
+  flex-direction: column;
+  padding-bottom: 70px;
+}
+
+.profile__title {
+  font-size: 24px;
+  font-weight: 500;
+  line-height: 29.05px;
+  margin: 0;
+  text-align: center;
+  padding-top: 72px;
+}
+
+
+.profile__label {
+  margin: 0;
+  width: 141px;
+  font-size: 11px;
+  font-style: normal;
+  font-weight: 500;
+  line-height: normal;
+  color: #000000;
+}
+
+
+.profile__input {
+  border-left: none;
+  border-right: none;
+  border-top: none;
+  line-height: 15px;
+  padding: 0px 0 18px;
+  box-sizing: border-box;
+  border-bottom: none;
+  background-color: #FAFAFA;
+  color: #000000;
+  width: 100%;
+  text-align: right;
+  font-size: 11px;
+  font-weight: 400;
+  line-height: normal;
+  position: relative;
+  z-index: 0;
+}
+
+.profile__input:last-of-type {
+  border-bottom: none;
+}
+
+.profile__save {
+  margin: 20px auto 0 auto;
+  color: #FFFFFF;
+  border: none;
+  display: block;
+  font-size: 14px;
+  font-style: normal;
+  font-weight: 500;
+  line-height: normal;
+  cursor: pointer;
+  width: 410px;
+  height: 45px;
+  background-color: #3456f3;
+  border-radius: 3px;
+}
+
+.profile__save:hover {
+  opacity: 0.7;
+}
+
+.profile__save:disabled {
+  background-color: #F8F8F8;
+  color: #C2C2C2;
+}
+
+.profile__change-data {
+  margin: auto auto 0 auto;
+  text-align: center;
+  background: transparent;
+  border: none;
+  display: block;
+  color: #000000;
+  font-size: 13px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: normal;
+  cursor: pointer;
+  max-width: 410px;
+}
+
+
+.profile__logout {
+  margin: 0 auto;
+  margin-top: 16px;
+  color: #ee3465;
+  font-size: 13px;
+  font-style: normal;
+  font-weight: 500;
+  line-height: normal;
+  display: block;
+  text-align: center;
+  max-width: 410px;
+  text-decoration: none;
+}
+
+.profile__signout:hover {
+  opacity: 0.7;
+}
+
+
+
+.profile__change-data:hover {
+  opacity: 0.7;
+}
+
+.profile__disabled {
+  display: none;
+}
+
+
+.profile__error {
+  color: #FF004C;
+  font-size: 10px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: normal;
+  margin: auto auto 0 auto;
+  display: block;
+}
+
+
+.profile__input-error {
+  color: #ee3465;
+  font-size: 10px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: normal;
+  margin: 0 auto;
+  margin-top: 0px;
+  max-width: 410px;
+  display: block;
+  margin-top: 2px;
+}
+
+
+@media (max-width: 800px) {
+
+  .profile__title {
+    padding-top: 232px;
+  }
+
+  .profile__container {
+    margin-top: 96px;
+  }
+
+  .profile__container-email {
+    margin-top: 17px;
+  }
+
+  .profile__buttons {
+    padding-bottom: 70px;
+    margin-top: 175px;
+  }
+
+  .profile__logout {
+    font-size: 12px;
+    font-weight: 400;
+    line-height: 14.52px;
+
+  }
+
+  .profile__save {
+    width: 260px;
+    font-size: 12px;
+    line-height: 14.52px;
+  }
+
+  .profile__form {
+    height: 489px;
+  }
+}
+
+
+
+@media (max-width: 500px) {
+
+  .profile__content {
+    background-color: #FAFAFA;
+    height: calc(100vh - 76px);
+  }
+
+  .profile__title {
+    padding-top: 70px;
+  }
+
+  .profile__form {
+    padding: 0px 30px 0px 30px;
+    width: 260px;
+    height: 596px;
+    margin: 0 auto;
+  }
+
+  .profile__container {
+    margin-top: 80px;
+    width: 260px;
+  }
+
+  .profile__container-email {
+    margin-top: 15px;
+  }
+
+  .profile__change-data {
+    font-size: 12px;
+  }
+
+  .profile__logout {
+    font-size: 12px;
+    font-weight: 400;
+    line-height: 14.52px;
+
+  }
+
+  .profile__buttons {
+    padding-bottom: 30px;
+  }
+
+  .profile__save {
+    width: 260px;
+    font-size: 12px;
+    line-height: 14.52px;
+  }
+}
