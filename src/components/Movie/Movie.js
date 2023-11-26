@@ -30,6 +30,7 @@ function Movie({
       if (card.movieId === cardInfo.id) {
         setSavedCard(card);
         setIsLiked(true);
+        cardInfo._id=card._id
       }
     })
   }, [savedCard, savedMovies])
@@ -37,7 +38,7 @@ function Movie({
 
   function handleLike() {
     setIsLiked(!isLiked);
-    onLike(cardInfo, isLiked, savedCard);
+    onLike(cardInfo, isLiked);
   }
 
   function handleDelete() {

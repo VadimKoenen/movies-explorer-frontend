@@ -83,7 +83,7 @@ function SavedMovies({
     function handleDelete(cardInfo) {
         MainApi.deleteMovie(cardInfo._id)
             .then((res) => {
-            handleGetSavedMovies();
+         setFilteredSavedMovies(filteredSavedMovies.filter((filteredSavedMovie) => filteredSavedMovie._id !== cardInfo._id))
             })
             .catch((err) => {
                 console.log(err);

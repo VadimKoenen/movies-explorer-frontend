@@ -71,11 +71,12 @@ function Movies({
 
   function handleLike(cardInfo, isLiked, savedCard) {
     if (isLiked) {
-      handleDelete(savedCard);
+      handleDelete(cardInfo);
+      //handleDelete(savedCard);
     } else {
       MainApi.saveMovie(cardInfo)
       .then((res) => {
-           handleGetSavedMovies()
+        cardInfo._id=res._id
         //    console.log({res})
         })
     }
@@ -85,7 +86,7 @@ function Movies({
   function handleDelete(cardInfo) {
     MainApi.deleteMovie(cardInfo._id)
       .then((res) => {      
-      })
+        })
       .catch((err) => {
         console.log(err);
       })

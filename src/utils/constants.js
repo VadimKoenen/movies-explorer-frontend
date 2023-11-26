@@ -1,6 +1,6 @@
 export const MOVIES_API = "https://api.nomoreparties.co/beatfilm-movies";
-export const BASE_URL = "https://api.vkoenen.movies.nomoredomainsrocks.ru"; //'http://localhost:3000' //
-export const MAIN_BASEURL = 'https://api.vkoenen.movies.nomoredomainsrocks.ru'; //'http://localhost:3000'
+export const BASE_URL = "https://api.vkoenen.movies.nomoredomainsrocks.ru"; //'http://localhost:3000' // //
+export const MAIN_BASEURL = 'https://api.vkoenen.movies.nomoredomainsrocks.ru'; //'http://localhost:3000' //
 export const MOVIES_URL = "https://api.nomoreparties.co";
 
 
